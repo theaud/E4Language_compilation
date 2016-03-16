@@ -7,6 +7,7 @@ using namespace std;
 #include "E4Grammaire.h"
 
 //fonctions.h
+
 char* lirestr(FILE *file){
     char temp[100];
     fgets(temp,100,file);
