@@ -4,7 +4,7 @@ using namespace std;
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "E4grammaire.h"
+#include "E4Regle.h"
 
 //fonctions.h
 char* lirestr(FILE *file){
@@ -16,21 +16,21 @@ char* lirestr(FILE *file){
     return str;}
 
 
-Grammaire::Grammaire(char *str){
+Regle::Regle(char *str){
     char *substr = strtok(str,"=|");
     nom = substr;
     while(substr = strtok(NULL,"=|")) valeur.add(substr);
 }
 
-ostream& operator<<(ostream &os, const Grammaire &grammaire){
-    os << "nom : " << grammaire.nom<<"    " ;
-    os << "valeur : " << grammaire.valeur ;
+ostream& operator<<(ostream &os, const Regle &regle){
+    os << "nom : " << regle.nom<<"    " ;
+    os << "valeur : " << regle.valeur ;
     return os;}
 
 
 
-Liste<Grammaire> Grammaire::getgrammaires(){
-    Liste<Grammaire> grammaires;
+Liste<Regle> Regle::getgrammaires(){
+    Liste<Regle> grammaires;
     char *str;
     FILE *file = fopen("E4grammaire.txt","r");
     if(fgetc(file)!=EOF){
@@ -44,10 +44,11 @@ Liste<Grammaire> Grammaire::getgrammaires(){
     else cout << "* Erreur : le fichier E4grammaire.txt est absent ou vide ! *" << endl;
     return grammaires;}
 
-const string& Grammaire::getnom()const{
+const string& Regle::getnom()const{
     return nom;
 }
 
-const Liste<string>& Grammaire::getvaleur()const{
+const Liste<string>& Regle::getvaleur()const{
     return valeur;
 }
+

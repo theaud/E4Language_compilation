@@ -4,12 +4,12 @@ using namespace std;
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "E4grammaire.h"
- void affichage(Liste<Grammaire> grammaires);
+#include "E4Regle.h"
+ void affichage(Liste<Regle> grammaires);
 
 
 int main(int argc, char *argv[]){
-    Liste<Grammaire> grammaires = Grammaire::getgrammaires();
+    Liste<Regle> grammaires = Regle::getgrammaires();
 
 
     affichage(grammaires);
@@ -17,10 +17,10 @@ int main(int argc, char *argv[]){
 
 }
 
- void affichage(Liste<Grammaire> grammaires)
+ void affichage(Liste<Regle> grammaires)
 {
-
+    cout << "--------------- La grammmaire initiale --------------------------"<<endl;
     while(grammaires.foreach())
     {cout << grammaires.get() << " "<<endl;}
-
+    cout << "-----------------------------------------------------------------"<<endl;
 }
