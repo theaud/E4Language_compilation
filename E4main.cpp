@@ -10,4 +10,13 @@ using namespace std;
 int main(){
 	Grammaire grammaire = Grammaire::getgrammaire();
 	cout << grammaire << endl;
-	system("PAUSE");}
+	while(grammaire.getregles().foreach()){
+		cout << "recursivite : ";
+		if(grammaire.getregles().get().isrecursive()) cout << "vrai";
+		else cout << "faux";
+		cout << endl;
+	}
+}
+
+
+

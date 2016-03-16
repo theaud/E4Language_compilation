@@ -17,7 +17,9 @@ char* lirestr(FILE *file){
 	return str;}
 
 ostream& operator<<(ostream &os, const Grammaire &grammaire){
-	os << grammaire.regles;
+
+		while(grammaire.regles.foreach())
+		{os << grammaire.regles.get() << " ";}
 	return os;
 }
 
