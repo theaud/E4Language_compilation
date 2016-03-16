@@ -2,14 +2,7 @@
 #ifndef GRAMMAIRE
 #define GRAMMAIRE
 #include "E4liste.h"
-#include "E4Regle.h"
-
-#include <iostream>
-using namespace std;
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include "E4regle.h"
 
 class Grammaire{
 private :

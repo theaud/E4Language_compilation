@@ -1,13 +1,13 @@
 #include <iostream>
-#include "E4Regle.h"
-#include "E4grammaire.h"
-
 using namespace std;
+#include <string>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "E4grammaire.h"
+#include "E4regle.h"
 
-
-
-int main(int argc, char *argv[]){
-    Grammaire grammaire = Grammaire::getgrammaire();
-    cout << "test" << endl;
-    cout << grammaire;
-}
+int main(){
+	Grammaire grammaire = Grammaire::getgrammaire();
+	cout << grammaire << endl;
+	system("PAUSE");}
