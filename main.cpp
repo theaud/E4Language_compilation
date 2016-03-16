@@ -5,7 +5,7 @@ using namespace std;
 #include <stdlib.h>
 #include <string.h>
 #include "../fonctions.h"
-#include "grammaire.h"
+#include "E4grammaire.h"
 #include "regle.h"
 
 int main(){

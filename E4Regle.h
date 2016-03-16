@@ -1,6 +1,6 @@
 
-#ifndef GRAMMAIRE
-#define GRAMMAIRE
+#ifndef REGLE
+#define REGLE
 #include <string>
 #include "E4liste.h"
 
@@ -13,7 +13,7 @@ public :
     Regle(char *str);
     ~Regle(){}
     friend ostream& operator<<(ostream &os, const Regle &grammaire);
-    static Liste<Regle> getgrammaires();
+
     const string& getnom()const;
     const Liste<string>& getvaleur()const;
 
