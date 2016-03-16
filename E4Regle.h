@@ -6,20 +6,16 @@
 
 class Regle{
 private :
-    string nom;
-    Liste<string> valeur;
+	string nom;
+	Liste<string> valeur;
 public :
-    Regle(){}
-    Regle(char *str);
-    ~Regle(){}
-    friend ostream& operator<<(ostream &os, const Regle &grammaire);
-
-    const string& getnom()const;
-    const Liste<string>& getvaleur()const;
-
-
-
-
+	Regle(){}
+	Regle(char *str);
+	~Regle(){}
+	friend ostream& operator<<(ostream &os, const Regle &regle);
+	const string& getnom()const;
+	const Liste<string>& getvaleur()const;
+	bool isrecursive()const;
 };
 
 #endif
