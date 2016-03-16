@@ -16,6 +16,10 @@ public :
     static Liste<Grammaire> getgrammaires();
     const string& getnom()const;
     const Liste<string>& getvaleur()const;
+
+
+
+
 };
 
 #endif

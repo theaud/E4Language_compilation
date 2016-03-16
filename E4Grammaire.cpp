@@ -23,9 +23,11 @@ Grammaire::Grammaire(char *str){
 }
 
 ostream& operator<<(ostream &os, const Grammaire &grammaire){
-    os << "nom = " << grammaire.nom << endl;
-    os << "valeur = " << grammaire.valeur << endl;
+    os << "nom : " << grammaire.nom<<"    " ;
+    os << "valeur : " << grammaire.valeur ;
     return os;}
+
+
 
 Liste<Grammaire> Grammaire::getgrammaires(){
     Liste<Grammaire> grammaires;
