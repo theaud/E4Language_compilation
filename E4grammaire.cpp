@@ -1,11 +1,6 @@
-#include <iostream>
-using namespace std;
-#include <string>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+
 #include "E4grammaire.h"
-#include "E4regle.h"
+
 
 //fonctions.h
 char* lirestr(FILE *file){
@@ -16,12 +11,14 @@ char* lirestr(FILE *file){
 	strcpy(str,temp);
 	return str;}
 
+
 ostream& operator<<(ostream &os, const Grammaire &grammaire){
 
 		while(grammaire.regles.foreach())
 		{os << grammaire.regles.get() << " ";}
 	return os;
 }
+
 
 Grammaire Grammaire::getgrammaire(){
 	Grammaire grammaire;

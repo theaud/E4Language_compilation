@@ -1,0 +1,1293 @@
+<style type="text/css">
+	body {
+		font-family: verdana,arial,helvetica,sans-serif;
+		font-size: 12px;
+		color: black;
+	}
+	
+	h1 {
+		height: 30px;
+		font-size: 21px;
+		border-bottom: 2px solid #204080;
+	}
+	
+	h3 {
+		border-bottom: 1px solid navy;
+	}
+	
+	pre {
+		margin: 0px;
+	}
+	
+	label {
+		display: block;
+		margin-bottom: 4px;
+		font-weight: bold;
+	}
+	
+	a:link, a:visited, a:active {
+		text-decoration: none;
+		color: #000070;
+	}
+	
+	article {
+		width: 740px;
+		vertical-align: top;
+		background-color: #fff;
+	}
+	
+	.prototype {
+		color: #008000;
+		background: #fafffa;
+	}
+	
+	.code {
+		color: #000000;
+		background: #efefff;
+	}
+	
+	.output {
+		display: table;
+		padding: 0px 5px 0px 5px;
+		background: #e7e7e7;
+		border: 1px solid silver;
+	}
+	
+	dl {
+		clear: both;
+		width: 100%;
+		margin: 3px;
+		border: 1px solid silver;
+		background-color: #f0f0f0;
+	}
+	
+	dl dt {
+		float: left;
+		padding: 1px 3px;
+		background-color: #f0f0f0;
+	}
+	
+	dl dd {
+		margin-left: 165px;
+		border-left: 1px solid silver;
+		background-color: #fff;
+		padding: 1px 3px;
+	}
+	
+	fieldset {
+		margin: 20px 0px 20px 0px;
+		padding-top: 10px;
+	}
+	
+	fieldset legend {
+		color: #000070;
+		font-size: 15px;
+		font-weight: bold;
+	}
+</style>
+<html>
+	<body>
+		<article>
+			<h1>Liste reference</h1>
+			
+			<section id="introduction">
+				<div class="prototype">
+					<pre>template &lt; typename Type &gt; class Liste;</pre>
+				</div>
+				<br>
+				<div class="description">
+					Lists are sequence containers that allow constant time insert and erase operations anywhere within the sequence, and iteration in both directions.<br>
+					<br>
+					List containers are implemented as single-linked lists; Single linked lists can store each of the elements they contain in different and unrelated storage locations.
+					The ordering is kept internally by the association to each element of a link to the element preceding it.<br>
+					<br>
+					This list can also perform the role of C++ maps i.e. store elements formed by a combination of a key as char array and a value.
+					The value of element in a map can be accessed directly by their corresponding key using the bracket operator (<a href="#operator[]">operator[]</a>).
+				</div>
+			</section>
+			
+			<section id="functions">
+				<h3>Member functions</h3>
+				
+				<dl>
+					<dt><a href="#(constructor)"><b>(constructor)</b></a></dt>
+					<dd>Construct list</dd>
+				</dl>
+				<dl>
+					<dt><a href="#(destructor)"><b>(destructor)</b></a></dt>
+					<dd>List destructor</dd>
+				</dl>
+				<br>
+				
+				<b>Operators</b>:<br>
+				<dl>
+					<dt><a href="#operator="><b>operator=</b></a></dt>
+					<dd>Assign content</dd>
+				</dl>
+				<dl>
+					<dt><a href="#operator+"><b>operator+</b></a></dt>
+					<dd>Concatenate lists</dd>
+				</dl>
+				<dl>
+					<dt><a href="#operator+="><b>operator+=</b></a></dt>
+					<dd>Concatenate lists</dd>
+				</dl>
+				<dl>
+					<dt><a href="#operator=="><b>operator==</b></a></dt>
+					<dd>Test whether lists are equals</dd>
+				</dl>
+				<dl>
+					<dt><a href="#operator!="><b>operator!=</b></a></dt>
+					<dd>Test whether lists are different</dd>
+				</dl>
+				<dl>
+					<dt><a href="#operator<<"><b>operator<<</b></a></dt>
+					<dd>Insert list into stream</dd>
+				</dl>
+				<dl>
+					<dt><a href="#operator[]"><b>operator[]</b></a></dt>
+					<dd>Access or create element in list with specified key</dd>
+				</dl>
+				<br>
+				
+				<b>Element access</b>:<br>
+				<dl>
+					<dt><a href="#front()"><b>front()</b></a></dt>
+					<dd>Access first element</dd>
+				</dl>
+				<dl>
+					<dt><a href="#back()"><b>back()</b></a></dt>
+					<dd>Access last element</dd>
+				</dl>
+				<dl>
+					<dt><a href="#at(index)"><b>at(index)</b></a></dt>
+					<dd>Access element at specified index</dd>
+				</dl>
+				<br>
+				
+				<b>Modifiers</b>:<br>
+				<dl>
+					<dt><a href="#add(element)"><b>add(element)</b></a></dt>
+					<dd>Add element</dd>
+				</dl>
+				<dl>
+					<dt><a href="#push_front(element)"><b>push_front(element)</b></a></dt>
+					<dd>Add element at beginning</dd>
+				</dl>
+				<dl>
+					<dt><a href="#push_back(element)"><b>push_back(element)</b></a></dt>
+					<dd>Add element at the end</dd>
+				</dl>
+				<dl>
+					<dt><a href="#insert(index,element)"><b>insert(index,element)</b></a></dt>
+					<dd>Insert element at specified index</dd>
+				</dl>
+				<dl>
+					<dt><a href="#pop_front()"><b>pop_front()</b></a></dt>
+					<dd>Remove first element</dd>
+				</dl>
+				<dl>
+					<dt><a href="#pop_back()"><b>pop_back()</b></a></dt>
+					<dd>Remove last element</dd>
+				</dl>
+				<dl>
+					<dt><a href="#remove(index)"><b>remove(index)</b></a></dt>
+					<dd>Remove element at specified index</dd>
+				</dl>
+				<dl>
+					<dt><a href="#remove(key)"><b>remove(key)</b></a></dt>
+					<dd>Remove element with specified key</dd>
+				</dl>
+				<dl>
+					<dt><a href="#clear()"><b>clear()</b></a></dt>
+					<dd>Clear content</dd>
+				</dl>
+				<br>
+				
+				<b>List operations</b>:<br>
+				<dl>
+					<dt><a href="#concat(list)"><b>concat(list)</b></a></dt>
+					<dd>Concatenate lists</dd>
+				</dl>
+				<dl>
+					<dt><a href="#unique()"><b>unique()</b></a></dt>
+					<dd>Remove duplicate values</dd>
+				</dl>
+				<dl>
+					<dt><a href="#sort()"><b>sort()</b></a></dt>
+					<dd>Sort elements in list</dd>
+				</dl>
+				<dl>
+					<dt><a href="#rsort()"><b>rsort()</b></a></dt>
+					<dd>Sort elements in list in reverse order</dd>
+				</dl>
+				<br>
+				
+				<b>Capacity &amp; Search</b>:<br>
+				<dl>
+					<dt><a href="#isempty()"><b>isempty()</b></a></dt>
+					<dd>Test whether list is empty</dd>
+				</dl>
+				<dl>
+					<dt><a href="#size()"><b>size()</b></a></dt>
+					<dd>Return size</dd>
+				</dl>
+				<dl>
+					<dt><a href="#contains(element)"><b>contains(element)</b></a></dt>
+					<dd>Test whether list contains element</dd>
+				</dl>
+				<dl>
+					<dt><a href="#keyexists(key)"><b>keyexists(key)</b></a></dt>
+					<dd>Test whether list contains key</dd>
+				</dl>
+				<br>
+				
+				<b>Foreach functions</b>:<br>
+				<dl>
+					<dt><a href="#foreach()"><b>foreach()</b></a></dt>
+					<dd>Iterate elements in list</dd>
+				</dl>
+				<dl>
+					<dt><a href="#get()"><b>get()</b></a></dt>
+					<dd>Access element</dd>
+				</dl>
+				<dl>
+					<dt><a href="#reset()"><b>reset()</b></a></dt>
+					<dd>Reset iterator to beginning</dd>
+				</dl>
+				<br>
+			</section>
+			
+			<section id="details">
+				<h3>Function details</h3>
+				
+				<fieldset id="(constructor)">
+					<legend>Liste::Liste()</legend>
+					<div class="prototype">
+						<pre><i>(default)</i>		Liste();</pre>
+						<pre><i>(copy)</i>			Liste(const Liste&lt;Type&gt; &amp;liste);</pre>
+						<pre><i>(initializer list)</i>	Liste(initializer_list&lt;Type&gt; args);</pre>
+					</div>
+					<br>
+					<div class="description">
+						Constructs a list container object, initializing its contents depending on the constructor version used.<br>
+						<br>
+						- default constructor :<br>
+						Constructs an empty container, with no elements.<br>
+						<br>
+						- copy constructor :<br>
+						Constructs a container with a copy of each of the elements in liste, in the same order.<br>
+						<br>
+						- initializer list constructor (C++ 2011) :<br>
+						Constructs a container with a copy of each of the elements in args, in the same order.
+					</div>
+					<br>
+					<label>Example :</label>
+					<div class="code">
+						<pre>int main(){</pre>
+						<pre>	Liste&lt;int&gt; liste1;	// empty list of int</pre>
+						<pre>	cout << "The first list contains: " << liste1 << endl;</pre>
+						<pre>	liste1.add(1);</pre>
+						<pre>	liste1.add(2);</pre>
+						<pre>	liste1.add(3);</pre>
+						<pre>	Liste&lt;int&gt; liste2(liste1);	// a copy of liste1</pre>
+						<pre>	cout << "The second list contains: " << liste2 << endl;</pre>
+						<pre>	Liste&lt;int&gt; liste3 = liste1;	// a copy of liste1</pre>
+						<pre>	cout << "The third list contains: " << liste3 << endl;</pre>
+						<pre>	Liste&lt;int&gt; liste4 = {1,2,3};	// a list of 3 elements</pre>
+						<pre>	cout << "The fourth list contains: " << liste4 << endl;</pre>
+						<pre>}</pre>
+					</div>
+					<br>
+					<label>Output :</label>
+					<div class="output">
+						<pre>The first list contains:</pre>
+						<pre>The second list contains: [1, 2, 3]</pre>
+						<pre>The third list contains: [1, 2, 3]</pre>
+						<pre>The fourth list contains: [1, 2, 3]</pre>
+					</div>
+				</fieldset>
+				
+				<fieldset id="(destructor)">
+					<legend>Liste::~Liste()</legend>
+					<div class="prototype">
+						<pre>~Liste();</pre>
+					</div>
+					<br>
+					<div class="description">
+						Destroys the container object and all his elements recursively.
+					</div>
+				</fieldset>
+				
+				<fieldset id="operator=">
+					<legend>Liste::operator=</legend>
+					<div class="prototype">
+						<pre><i>(copy)</i>			Liste& operator=(const Liste&lt;Type&gt; &amp;liste);</pre>
+						<pre><i>(initializer list)</i>	Liste& operator=(initializer_list&lt;Type&gt; args);</pre>
+					</div>
+					<br>
+					<div class="description">
+						Assigns new contents to the container, replacing its current contents, and modifying its size accordingly.<br>
+						<br>
+						- copy assignment :<br>
+						Copies all the elements from liste into the container (with liste preserving its contents).<br>
+						<br>
+						- initializer list assignment (C++ 2011) :<br>
+						Copies the elements of args into the container.
+					</div>
+					<br>
+					<label>Example :</label>
+					<div class="code">
+						<pre>int main(){</pre>
+						<pre>	Liste&lt;int&gt; liste1, liste2, liste3;	// empty lists of int</pre>
+						<pre>	cout << "The first list contains: " << liste1 << endl;</pre>
+						<pre>	liste1.add(1);</pre>
+						<pre>	liste1.add(2);</pre>
+						<pre>	liste1.add(3);</pre>
+						<pre>	liste2 = liste1;	// a copy of liste1</pre>
+						<pre>	cout << "The second list contains: " << liste2 << endl;</pre>
+						<pre>	liste3 = {1,2,3};	// a list of 3 elements</pre>
+						<pre>	cout << "The third list contains: " << liste3 << endl;</pre>
+						<pre>}</pre>
+					</div>
+					<br>
+					<label>Output :</label>
+					<div class="output">
+						<pre>The first list contains:</pre>
+						<pre>The second list contains: [1, 2, 3]</pre>
+						<pre>The third list contains: [1, 2, 3]</pre>
+					</div>
+				</fieldset>
+				
+				<fieldset id="operator+">
+					<legend>Liste::operator+</legend>
+					<div class="prototype">
+						<pre>Liste operator+(const Liste&lt;Type&gt; &amp;liste1, const Liste&lt;Type&gt; &amp;liste2);</pre>
+					</div>
+					<br>
+					<div class="description">
+						Returns a newly constructed list object with its value being the concatenation of the elements in liste1 followed by those of liste2.<br>
+						The concatenation is proceed thanks to <a href="#concat(list)">concat()</a> function and conserves existing keys from the two lists.
+					</div>
+					<br>
+					<label>Example :</label>
+					<div class="code">
+						<pre>int main(){</pre>
+						<pre>	Liste&lt;int&gt; liste1 = {1,2,3};</pre>
+						<pre>	cout << "The first list contains: " << liste1 << endl;</pre>
+						<pre>	Liste&lt;int&gt; liste2 = {4,5,6};</pre>
+						<pre>	cout << "The second list contains: " << liste2 << endl;</pre>
+						<pre>	Liste&lt;int&gt; liste3 = liste1+liste2;</pre>
+						<pre>	cout << "The third list contains: " << liste3 << endl;</pre>
+						<pre>}</pre>
+					</div>
+					<br>
+					<label>Output :</label>
+					<div class="output">
+						<pre>The first list contains: [1, 2, 3]</pre>
+						<pre>The second list contains: [4, 5, 6]</pre>
+						<pre>The third list contains: [1, 2, 3, 4, 5, 6]</pre>
+					</div>
+				</fieldset>
+				
+				<fieldset id="operator+=">
+					<legend>Liste::operator+=</legend>
+					<div class="prototype">
+						<pre>Liste& operator+=(const Liste&lt;Type&gt; &amp;liste);</pre>
+						<pre>Liste& operator+=(initializer_list&lt;Type&gt; args);</pre>
+					</div>
+					<br>
+					<div class="description">
+						Extends the container by appending additional elements at the end of its current value.<br>
+						The concatenation is proceed thanks to <a href="#concat(list)">concat()</a> function and conserves existing keys from the two lists.
+					</div>
+					<br>
+					<label>Example :</label>
+					<div class="code">
+						<pre>int main(){</pre>
+						<pre>	Liste&lt;int&gt; liste1 = {1,2,3};</pre>
+						<pre>	Liste&lt;int&gt; liste2 = {4,5,6};</pre>
+						<pre>	Liste&lt;int&gt; liste3;</pre>
+						<pre>	cout << "The list contains: " << liste3 << endl;</pre>
+						<pre>	liste3 += liste1;</pre>
+						<pre>	cout << "The list contains: " << liste3 << endl;</pre>
+						<pre>	liste3 += liste2;</pre>
+						<pre>	cout << "The list contains: " << liste3 << endl;</pre>
+						<pre>}</pre>
+					</div>
+					<br>
+					<label>Output :</label>
+					<div class="output">
+						<pre>The list contains:</pre>
+						<pre>The list contains: [1, 2, 3]</pre>
+						<pre>The list contains: [1, 2, 3, 4, 5, 6]</pre>
+					</div>
+				</fieldset>
+				
+				<fieldset id="operator==">
+					<legend>Liste::operator==</legend>
+					<div class="prototype">
+						<pre>bool operator==(const Liste&lt;Type&gt; &amp;liste1, const Liste&lt;Type&gt; &amp;liste2);</pre>
+					</div>
+					<br>
+					<div class="description">
+						Returns true if the two specified lists are equals.<br>
+						More formally, the function iterates elements of the two lists simultaneously and tests if they compare equal.
+						Therefore operator== must be defined for the Type used in list to use this function.
+						If the two lists don't have the same size or if at least one difference is found, the function returns false.
+					</div>
+					<br>
+					<label>Example :</label>
+					<div class="code">
+						<pre>int main(){</pre>
+						<pre>	Liste&lt;int&gt; liste1 = {1,2,3};</pre>
+						<pre>	Liste&lt;int&gt; liste2 = {1,2,3,4};</pre>
+						<pre>	Liste&lt;int&gt; liste3 = {4,5,6};</pre>
+						<pre>	cout << ((liste1==liste1)?"true":"false") << endl;</pre>
+						<pre>	cout << ((liste1==liste2)?"true":"false") << endl;</pre>
+						<pre>	cout << ((liste1==liste3)?"true":"false") << endl;</pre>
+						<pre>}</pre>
+					</div>
+					<br>
+					<label>Output :</label>
+					<div class="output">
+						<pre>true</pre>
+						<pre>false</pre>
+						<pre>false</pre>
+					</div>
+				</fieldset>
+				
+				<fieldset id="operator!=">
+					<legend>Liste::operator!=</legend>
+					<div class="prototype">
+						<pre>bool operator!=(const Liste&lt;Type&gt; &amp;liste1, const Liste&lt;Type&gt; &amp;liste2);</pre>
+					</div>
+					<br>
+					<div class="description">
+						Returns true if the two specified lists are different.<br>
+						More formally, the function iterates elements of the two lists simultaneously and tests if they compare equal.
+						Therefore operator== must be defined for the Type used in list to use this function.
+						If the two lists don't have the same size or if at least one difference is found, the function returns true.
+					</div>
+					<br>
+					<label>Example :</label>
+					<div class="code">
+						<pre>int main(){</pre>
+						<pre>	Liste&lt;int&gt; liste1 = {1,2,3};</pre>
+						<pre>	Liste&lt;int&gt; liste2 = {1,2,3,4};</pre>
+						<pre>	Liste&lt;int&gt; liste3 = {4,5,6};</pre>
+						<pre>	cout << ((liste1!=liste1)?"true":"false") << endl;</pre>
+						<pre>	cout << ((liste1!=liste2)?"true":"false") << endl;</pre>
+						<pre>	cout << ((liste1!=liste3)?"true":"false") << endl;</pre>
+						<pre>}</pre>
+					</div>
+					<br>
+					<label>Output :</label>
+					<div class="output">
+						<pre>false</pre>
+						<pre>true</pre>
+						<pre>true</pre>
+					</div>
+				</fieldset>
+				
+				<fieldset id="operator<<">
+					<legend>Liste::operator<<</legend>
+					<div class="prototype">
+						<pre>ostream&amp; operator<<(ostream &amp;os, const Liste&lt;Type&gt; &amp;liste);</pre>
+					</div>
+					<br>
+					<div class="description">
+						Inserts the list of elements into the stream.<br>
+						More formally, the function iterates all elements of the list and insert them into the stream.
+						Therefore operator<< must be defined for the Type used in list to use this function.
+					</div>
+					<br>
+					<label>Example :</label>
+					<div class="code">
+						<pre>int main(){</pre>
+						<pre>	Liste&lt;int&gt; liste;</pre>
+						<pre>	liste.add(1);</pre>
+						<pre>	liste.add(2);</pre>
+						<pre>	liste.add(3);</pre>
+						<pre>	cout << "The list contains: " << liste << endl;</pre>
+						<pre>}</pre>
+					</div>
+					<br>
+					<label>Output :</label>
+					<div class="output">
+						<pre>The list contains: [1, 2, 3]</pre>
+					</div>
+				</fieldset>
+				
+				<fieldset id="operator[]">
+					<legend>Liste::operator[]</legend>
+					<div class="prototype">
+						<pre>      Type& operator[](const char*);</pre>
+						<pre>const Type& operator[](const char*)const;</pre>
+					</div>
+					<br>
+					<div class="description">
+						Returns a reference to the element with the specified key in the list container.<br>
+						If the specified key doesn't exists in the list, the function creates a new empty element into the container and returns his reference.
+						However, if operator[] is used with a const list, the function throws an out_of_range exception.
+						Moreover, calling this function on an empty list or with a NULL key throws a runtime_error exception.
+					</div>
+					<br>
+					<label>Example :</label>
+					<div class="code">
+						<pre>int main(){</pre>
+						<pre>	Liste&lt;int&gt; liste;</pre>
+						<pre>	// Creates elements into liste</pre>
+						<pre>	liste["a"] = 1;</pre>
+						<pre>	liste["b"] = 2;</pre>
+						<pre>	liste["c"] = 3;</pre>
+						<pre>	// Access to elements in liste</pre>
+						<pre>	cout << "Element a = " << liste["a"] << endl;</pre>
+						<pre>	cout << "Element b = " << liste["b"] << endl;</pre>
+						<pre>	cout << "Element c = " << liste["c"] << endl;</pre>
+						<pre>}</pre>
+					</div>
+					<br>
+					<label>Output :</label>
+					<div class="output">
+						<pre>Element a = 1</pre>
+						<pre>Element b = 2</pre>
+						<pre>Element c = 3</pre>
+					</div>
+				</fieldset>
+				
+				<fieldset id="front()">
+					<legend>Liste::front()</legend>
+					<div class="prototype">
+						<pre>      Type&amp; front();</pre>
+						<pre>const Type&amp; front() const;</pre>
+					</div>
+					<br>
+					<div class="description">
+						Returns a reference to the first element in the list.<br>
+						Calling this function on an empty list throws a runtime_error exception.
+					</div>
+					<br>
+					<label>Example :</label>
+					<div class="code">
+						<pre>int main(){</pre>
+						<pre>	Liste&lt;int&gt; liste;</pre>
+						<pre>	liste.add(1);</pre>
+						<pre>	liste.add(2);</pre>
+						<pre>	liste.add(3);</pre>
+						<pre>	cout << "The first element is: " << liste.front() << endl;</pre>
+						<pre>}</pre>
+					</div>
+					<br>
+					<label>Output :</label>
+					<div class="output">
+						<pre>The first element is: 1</pre>
+					</div>
+				</fieldset>
+				
+				<fieldset id="back()">
+					<legend>Liste::back()</legend>
+					<div class="prototype">
+						<pre>      Type&amp; back();</pre>
+						<pre>const Type&amp; back() const;</pre>
+					</div>
+					<br>
+					<div class="description">
+						Returns a reference to the last element in the list.<br>
+						Calling this function on an empty list throws a runtime_error exception.
+					</div>
+					<br>
+					<label>Example :</label>
+					<div class="code">
+						<pre>int main(){</pre>
+						<pre>	Liste&lt;int&gt; liste;</pre>
+						<pre>	liste.add(1);</pre>
+						<pre>	liste.add(2);</pre>
+						<pre>	liste.add(3);</pre>
+						<pre>	cout << "The last element is: " << liste.last() << endl;</pre>
+						<pre>}</pre>
+					</div>
+					<br>
+					<label>Output :</label>
+					<div class="output">
+						<pre>The last element is: 3</pre>
+					</div>
+				</fieldset>
+				
+				<fieldset id="at(index)">
+					<legend>Liste::at(index)</legend>
+					<div class="prototype">
+						<pre>      Type&amp; at(int n);</pre>
+						<pre>const Type&amp; at(int n) const;</pre>
+					</div>
+					<br>
+					<div class="description">
+						Returns a reference to the element at position n in the list.<br>
+						The function automatically checks whether n is within the bounds of valid elements in the list,
+						throwing an out_of_range exception if it is not (i.e., if n is negative or is greater or equal than its size).
+					</div>
+					<br>
+					<label>Example :</label>
+					<div class="code">
+						<pre>int main(){</pre>
+						<pre>	Liste&lt;int&gt; liste;</pre>
+						<pre>	liste.add(1);</pre>
+						<pre>	liste.add(2);</pre>
+						<pre>	liste.add(3);</pre>
+						<pre>	cout << "The list contains: " << endl;</pre>
+						<pre>	for(int i=0; i&lt;liste.size(); i++){</pre>
+						<pre>		cout << liste.at(i) << " ";</pre>
+						<pre>	}</pre>
+						<pre>}</pre>
+					</div>
+					<br>
+					<label>Output :</label>
+					<div class="output">
+						<pre>The list contains: 1 2 3</pre>
+					</div>
+				</fieldset>
+				
+				<fieldset id="add(element)">
+					<legend>Liste::add(element)</legend>
+					<div class="prototype">
+						<pre>void add(const Type &amp;val);</pre>
+					</div>
+					<br>
+					<div class="description">
+						Adds a new element at the end of the list, after its current last element. The content of val is copied to the new element.
+					</div>
+					<br>
+					<label>Example :</label>
+					<div class="code">
+						<pre>int main(){</pre>
+						<pre>	Liste&lt;int&gt; liste;</pre>
+						<pre>	liste.add(1);</pre>
+						<pre>	liste.add(2);</pre>
+						<pre>	liste.add(3);</pre>
+						<pre>	cout << "The list contains: " << liste << endl;</pre>
+						<pre>}</pre>
+					</div>
+					<br>
+					<label>Output :</label>
+					<div class="output">
+						<pre>The list contains: [1, 2, 3]</pre>
+					</div>
+				</fieldset>
+				
+				<fieldset id="push_front(element)">
+					<legend>Liste::push_front(element)</legend>
+					<div class="prototype">
+						<pre>void push_front(const Type &amp;val);</pre>
+					</div>
+					<br>
+					<div class="description">
+						Adds a new element at the beginning of the list, before its current first element.<br>
+						The content of val is copied to the new element.
+					</div>
+					<br>
+					<label>Example :</label>
+					<div class="code">
+						<pre>int main(){</pre>
+						<pre>	Liste&lt;int&gt; liste;</pre>
+						<pre>	liste.push_front(1);</pre>
+						<pre>	liste.push_front(2);</pre>
+						<pre>	liste.push_front(3);</pre>
+						<pre>	cout << "The list contains: " << liste << endl;</pre>
+						<pre>}</pre>
+					</div>
+					<br>
+					<label>Output :</label>
+					<div class="output">
+						<pre>The list contains: [3, 2, 1]</pre>
+					</div>
+				</fieldset>
+				
+				<fieldset id="push_back(element)">
+					<legend>Liste::push_back(element)</legend>
+					<div class="prototype">
+						<pre>void push_back(const Type &amp;val);</pre>
+					</div>
+					<br>
+					<div class="description">
+						Adds a new element at the end of the list, after its current last element.<br>
+						The content of val is copied to the new element.
+					</div>
+					<br>
+					<label>Example :</label>
+					<div class="code">
+						<pre>int main(){</pre>
+						<pre>	Liste&lt;int&gt; liste;</pre>
+						<pre>	liste.push_back(1);</pre>
+						<pre>	liste.push_back(2);</pre>
+						<pre>	liste.push_back(3);</pre>
+						<pre>	cout << "The list contains: " << liste << endl;</pre>
+						<pre>}</pre>
+					</div>
+					<br>
+					<label>Output :</label>
+					<div class="output">
+						<pre>The list contains: [1, 2, 3]</pre>
+					</div>
+				</fieldset>
+				
+				<fieldset id="insert(index,element)">
+					<legend>Liste::insert(index,element)</legend>
+					<div class="prototype">
+						<pre>void insert(int n, const Type &amp;val);</pre>
+					</div>
+					<br>
+					<div class="description">
+						The list is extended by inserting a new element before the element at position n, effectively increasing the container size by one.<br>
+						The function automatically checks whether n is within the bounds of valid elements in the list,
+						throwing an out_of_range exception if it is not (i.e., if n is negative or is greater or equal than its size).
+					</div>
+					<br>
+					<label>Example :</label>
+					<div class="code">
+						<pre>int main(){</pre>
+						<pre>	Liste&lt;int&gt; liste;</pre>
+						<pre>	liste.add(1);</pre>
+						<pre>	liste.add(2);</pre>
+						<pre>	liste.add(3);</pre>
+						<pre>	cout << "The list contains: " << liste << endl;</pre>
+						<pre>	liste.insert(2,42);</pre>
+						<pre>	cout << "The list contains: " << liste << endl;</pre>
+						<pre>}</pre>
+					</div>
+					<br>
+					<label>Output :</label>
+					<div class="output">
+						<pre>The list contains: [1, 2, 3]</pre>
+						<pre>The list contains: [1, 42, 2, 3]</pre>
+					</div>
+				</fieldset>
+				
+				<fieldset id="pop_front()">
+					<legend>Liste::pop_front()</legend>
+					<div class="prototype">
+						<pre>Type pop_front();</pre>
+					</div>
+					<br>
+					<div class="description">
+						Removes and returns the first element in the list, effectively reducing the container size by one.<br>
+						Calling this function on an empty list throws a runtime_error exception.
+					</div>
+					<br>
+					<label>Example :</label>
+					<div class="code">
+						<pre>int main(){</pre>
+						<pre>	Liste&lt;int&gt; liste;</pre>
+						<pre>	liste.add(1);</pre>
+						<pre>	liste.add(2);</pre>
+						<pre>	liste.add(3);</pre>
+						<pre>	cout << "The list contains: " << liste << endl;</pre>
+						<pre>	cout << "Number " << liste.pop_front() << " is removed." << endl;</pre>
+						<pre>	cout << "The list contains: " << liste << endl;</pre>
+						<pre>}</pre>
+					</div>
+					<br>
+					<label>Output :</label>
+					<div class="output">
+						<pre>The list contains: [1, 2, 3]</pre>
+						<pre>Number 1 is removed.</pre>
+						<pre>The list contains: [2, 3]</pre>
+					</div>
+				</fieldset>
+				
+				<fieldset id="pop_back()">
+					<legend>Liste::pop_back()</legend>
+					<div class="prototype">
+						<pre>Type pop_back();</pre>
+					</div>
+					<br>
+					<div class="description">
+						Removes and returns the last element in the list, effectively reducing the container size by one.<br>
+						Calling this function on an empty list throws a runtime_error exception.
+					</div>
+					<br>
+					<label>Example :</label>
+					<div class="code">
+						<pre>int main(){</pre>
+						<pre>	Liste&lt;int&gt; liste;</pre>
+						<pre>	liste.add(1);</pre>
+						<pre>	liste.add(2);</pre>
+						<pre>	liste.add(3);</pre>
+						<pre>	cout << "The list contains: " << liste << endl;</pre>
+						<pre>	cout << "Number " << liste.pop_back() << " is removed." << endl;</pre>
+						<pre>	cout << "The list contains: " << liste << endl;</pre>
+						<pre>}</pre>
+					</div>
+					<br>
+					<label>Output :</label>
+					<div class="output">
+						<pre>The list contains: [1, 2, 3]</pre>
+						<pre>Number 3 is removed.</pre>
+						<pre>The list contains: [1, 2]</pre>
+					</div>
+				</fieldset>
+				
+				<fieldset id="remove(index)">
+					<legend>Liste::remove(index)</legend>
+					<div class="prototype">
+						<pre>Type remove(int n);</pre>
+					</div>
+					<br>
+					<div class="description">
+						Removes and returns the element at position n in the list, effectively reducing the container size by one.<br>
+						The function automatically checks whether n is within the bounds of valid elements in the list,
+						throwing an out_of_range exception if it is not (i.e., if n is negative or is greater or equal than its size).
+					</div>
+					<br>
+					<label>Example :</label>
+					<div class="code">
+						<pre>int main(){</pre>
+						<pre>	Liste&lt;int&gt; liste;</pre>
+						<pre>	liste.add(1);</pre>
+						<pre>	liste.add(2);</pre>
+						<pre>	liste.add(3);</pre>
+						<pre>	cout << "The list contains: " << liste << endl;</pre>
+						<pre>	cout << "Number " << liste.remove(1) << " is removed." << endl;</pre>
+						<pre>	cout << "The list contains: " << liste << endl;</pre>
+						<pre>}</pre>
+					</div>
+					<br>
+					<label>Output :</label>
+					<div class="output">
+						<pre>The list contains: [1, 2, 3]</pre>
+						<pre>Number 2 is removed.</pre>
+						<pre>The list contains: [1, 3]</pre>
+					</div>
+				</fieldset>
+				
+				<fieldset id="remove(key)">
+					<legend>Liste::remove(key)</legend>
+					<div class="prototype">
+						<pre>Type remove(const char *key);</pre>
+					</div>
+					<br>
+					<div class="description">
+						Removes and returns the element with the specified key in the list, effectively reducing the container size by one.<br>
+						Calling this function on an empty list or with a NULL key throws a runtime_error exception.
+						If the specified key doesn't exist in the list, the function throws an out_of_range exception.
+					</div>
+					<br>
+					<label>Example :</label>
+					<div class="code">
+						<pre>int main(){</pre>
+						<pre>	Liste&lt;int&gt; liste;</pre>
+						<pre>	liste["a"] = 1;</pre>
+						<pre>	liste["b"] = 2;</pre>
+						<pre>	liste["c"] = 3;</pre>
+						<pre>	cout << "The list contains: " << liste << endl;</pre>
+						<pre>	cout << "Number " << liste.remove("b") << " is removed." << endl;</pre>
+						<pre>	cout << "The list contains: " << liste << endl;</pre>
+						<pre>}</pre>
+					</div>
+					<br>
+					<label>Output :</label>
+					<div class="output">
+						<pre>The list contains: [1, 2, 3]</pre>
+						<pre>Number 2 is removed.</pre>
+						<pre>The list contains: [1, 3]</pre>
+					</div>
+				</fieldset>
+				
+				<fieldset id="clear()">
+					<legend>Liste::clear()</legend>
+					<div class="prototype">
+						<pre>void clear();</pre>
+					</div>
+					<br>
+					<div class="description">
+						Removes all elements from the list (which are destroyed), leaving the container with a size of 0.
+					</div>
+					<br>
+					<label>Example :</label>
+					<div class="code">
+						<pre>int main(){</pre>
+						<pre>	Liste&lt;int&gt; liste;</pre>
+						<pre>	liste.add(1);</pre>
+						<pre>	liste.add(2);</pre>
+						<pre>	liste.add(3);</pre>
+						<pre>	cout << "The list contains: " << liste << endl;</pre>
+						<pre>	liste.clear();</pre>
+						<pre>	cout << "The list contains: " << liste << endl;</pre>
+						<pre>}</pre>
+					</div>
+					<br>
+					<label>Output :</label>
+					<div class="output">
+						<pre>The list contains: [1, 2, 3]</pre>
+						<pre>The list contains:</pre>
+					</div>
+				</fieldset>
+				
+				<fieldset id="concat(list)">
+					<legend>Liste::concat(list)</legend>
+					<div class="prototype">
+						<pre>void concat(const Liste&lt;Type&gt; &amp;liste);</pre>
+						<pre>void concat(initializer_list&lt;Type&gt; args);</pre>
+					</div>
+					<br>
+					<div class="description">
+						Extends the container by appending additional elements at the end of its current value.<br>
+						In order to conserves unicity of keys, an element in liste with a key that already exists in the container will replace the associated element.
+					</div>
+					<br>
+					<label>Example :</label>
+					<div class="code">
+						<pre>int main(){</pre>
+						<pre>	Liste&lt;int&gt; liste1;</pre>
+						<pre>	liste1["a"] = 1;</pre>
+						<pre>	liste1["b"] = 2;</pre>
+						<pre>	liste1["c"] = 3;</pre>
+						<pre>	Liste&lt;int&gt; liste2;</pre>
+						<pre>	liste2["c"] = 4;</pre>
+						<pre>	liste2["d"] = 5;</pre>
+						<pre>	liste2["e"] = 6;</pre>
+						<pre>	liste1.concat(liste2);</pre>
+						<pre>	cout << "The list contains: " << liste1 << endl;</pre>
+						<pre>}</pre>
+					</div>
+					<br>
+					<label>Output :</label>
+					<div class="output">
+						<pre>The list contains: [1, 2, 4, 5, 6]</pre>
+					</div>
+				</fieldset>
+				
+				<fieldset id="unique()">
+					<legend>Liste::unique()</legend>
+					<div class="prototype">
+						<pre>void unique();</pre>
+					</div>
+					<br>
+					<div class="description">
+						Removes all but the first element from every consecutive group of equal elements in the list.<br>
+						Notice that an element is removed from the list if it compares equal to other elements.
+						Therefore, operator== must be defined for the Type used in list to use this function.
+					</div>
+					<br>
+					<label>Example :</label>
+					<div class="code">
+						<pre>int main(){</pre>
+						<pre>	Liste&lt;int&gt; liste;</pre>
+						<pre>	liste.add(1);</pre>
+						<pre>	liste.add(2);</pre>
+						<pre>	liste.add(2);</pre>
+						<pre>	liste.add(3);</pre>
+						<pre>	cout << "The list contains: " << liste << endl;</pre>
+						<pre>	liste.unique();</pre>
+						<pre>	cout << "The list contains: " << liste << endl;</pre>
+						<pre>}</pre>
+					</div>
+					<br>
+					<label>Output :</label>
+					<div class="output">
+						<pre>The list contains: [1, 2, 2, 3]</pre>
+						<pre>The list contains: [1, 2, 3]</pre>
+					</div>
+				</fieldset>
+				
+				<fieldset id="sort()">
+					<legend>Liste::sort()</legend>
+					<div class="prototype">
+						<pre>void sort();</pre>
+					</div>
+					<br>
+					<div class="description">
+						Sorts the elements in the list, altering their position within the container.<br>
+						The sorting is performed by applying an algorithm that uses operator&lt; to compare elements.
+						Therefore, operator&lt; must be defined for the Type used in list to use this function.
+					</div>
+					<br>
+					<label>Example :</label>
+					<div class="code">
+						<pre>int main(){</pre>
+						<pre>	Liste&lt;int&gt; liste;</pre>
+						<pre>	liste.add(1);</pre>
+						<pre>	liste.add(42);</pre>
+						<pre>	liste.add(-1);</pre>
+						<pre>	liste.add(7);</pre>
+						<pre>	cout << "The list contains: " << liste << endl;</pre>
+						<pre>	liste.sort();</pre>
+						<pre>	cout << "The list contains: " << liste << endl;</pre>
+						<pre>}</pre>
+					</div>
+					<br>
+					<label>Output :</label>
+					<div class="output">
+						<pre>The list contains: [1, 42, -1, 7]</pre>
+						<pre>The list contains: [-1, 1, 7, 42]</pre>
+					</div>
+				</fieldset>
+				
+				<fieldset id="rsort()">
+					<legend>Liste::rsort()</legend>
+					<div class="prototype">
+						<pre>void rsort();</pre>
+					</div>
+					<br>
+					<div class="description">
+						Sorts the elements in the list in reverse order, altering their position within the container.<br>
+						The sorting is performed like function <a href="#sort()">sort()</a> by applying an algorithm that uses operator&lt; to compare elements.
+						Therefore, operator&lt; must be defined for the Type used in list to use this function.
+					</div>
+					<br>
+					<label>Example :</label>
+					<div class="code">
+						<pre>int main(){</pre>
+						<pre>	Liste&lt;int&gt; liste;</pre>
+						<pre>	liste.add(1);</pre>
+						<pre>	liste.add(42);</pre>
+						<pre>	liste.add(-1);</pre>
+						<pre>	liste.add(7);</pre>
+						<pre>	cout << "The list contains: " << liste << endl;</pre>
+						<pre>	liste.rsort();</pre>
+						<pre>	cout << "The list contains: " << liste << endl;</pre>
+						<pre>}</pre>
+					</div>
+					<br>
+					<label>Output :</label>
+					<div class="output">
+						<pre>The list contains: [1, 42, -1, 7]</pre>
+						<pre>The list contains: [42, 7, 1, -1]</pre>
+					</div>
+				</fieldset>
+				
+				<fieldset id="isempty()">
+					<legend>Liste::isempty()</legend>
+					<div class="prototype">
+						<pre>bool isempty() const;</pre>
+					</div>
+					<br>
+					<div class="description">
+						Returns whether the list is empty (i.e. whether its size is 0).
+					</div>
+					<br>
+					<label>Example :</label>
+					<div class="code">
+						<pre>int main(){</pre>
+						<pre>	Liste&lt;string&gt; liste;</pre>
+						<pre>	if(liste.isempty()) cout << "The list is empty." << endl;</pre>
+						<pre>	else cout << "The list contains something." << endl;</pre>
+						<pre>	liste.add("something");</pre>
+						<pre>	if(liste.isempty()) cout << "The list is empty." << endl;</pre>
+						<pre>	else cout << "The list contains something." << endl;</pre>
+						<pre>}</pre>
+					</div>
+					<br>
+					<label>Output :</label>
+					<div class="output">
+						<pre>The list is empty.</pre>
+						<pre>The list contains something.</pre>
+					</div>
+				</fieldset>
+				
+				<fieldset id="size()">
+					<legend>Liste::size()</legend>
+					<div class="prototype">
+						<pre>int size() const;</pre>
+					</div>
+					<br>
+					<div class="description">
+						Returns the number of elements in the list.
+					</div>
+					<br>
+					<label>Example :</label>
+					<div class="code">
+						<pre>int main(){</pre>
+						<pre>	Liste&lt;int&gt; liste;</pre>
+						<pre>	liste.add(1);</pre>
+						<pre>	liste.add(2);</pre>
+						<pre>	liste.add(3);</pre>
+						<pre>	cout << "The list contains " << liste.size() << " element(s)." << endl;</pre>
+						<pre>}</pre>
+					</div>
+					<br>
+					<label>Output :</label>
+					<div class="output">
+						<pre>The list contains 3 element(s).</pre>
+					</div>
+				</fieldset>
+				
+				<fieldset id="contains(element)">
+					<legend>Liste::contains(element)</legend>
+					<div class="prototype">
+						<pre>bool contains(const Type &amp;val) const;</pre>
+					</div>
+					<br>
+					<div class="description">
+						Returns true if the list contains the specified value.<br>
+						More formally, returns true if and only if the list contains at least one element such that (liste.element==element).
+						Therefore, operator== must be defined for the Type used in list to use this function.
+					</div>
+					<br>
+					<label>Example :</label>
+					<div class="code">
+						<pre>int main(){</pre>
+						<pre>	Liste&lt;int&gt; liste;</pre>
+						<pre>	liste.add(1);</pre>
+						<pre>	liste.add(2);</pre>
+						<pre>	liste.add(3);</pre>
+						<pre>	if(liste.contains(0)) cout << "The list contains 0." << endl;</pre>
+						<pre>	else cout << "The list doesn't contain 0." << endl;</pre>
+						<pre>	if(liste.contains(2)) cout << "The list contains 2." << endl;</pre>
+						<pre>	else cout << "The list doesn't contain 2." << endl;</pre>
+						<pre>}</pre>
+					</div>
+					<br>
+					<label>Output :</label>
+					<div class="output">
+						<pre>The list doesn't contain 0.</pre>
+						<pre>The list contains 2.</pre>
+					</div>
+				</fieldset>
+				
+				<fieldset id="keyexists(key)">
+					<legend>Liste::keyexists(key)</legend>
+					<div class="prototype">
+						<pre>bool keyexists(const char *key) const;</pre>
+					</div>
+					<br>
+					<div class="description">
+						Returns true if the given key exists in the list.
+					</div>
+					<br>
+					<label>Example :</label>
+					<div class="code">
+						<pre>int main(){</pre>
+						<pre>	Liste&lt;int&gt; liste;</pre>
+						<pre>	liste["a"] = 1;</pre>
+						<pre>	liste["b"] = 2;</pre>
+						<pre>	liste["c"] = 3;</pre>
+						<pre>	if(liste.keyexists("b")) cout << "The list contains element b." << endl;</pre>
+						<pre>	else cout << "The list doesn't contain element b." << endl;</pre>
+						<pre>	if(liste.keyexists("d")) cout << "The list contains element d." << endl;</pre>
+						<pre>	else cout << "The list doesn't element d." << endl;</pre>
+						<pre>}</pre>
+					</div>
+					<br>
+					<label>Output :</label>
+					<div class="output">
+						<pre>The list contains element b.</pre>
+						<pre>The list doesn't contain element d.</pre>
+					</div>
+				</fieldset>
+				
+				<fieldset id="foreach()">
+					<legend>Liste::foreach()</legend>
+					<div class="prototype">
+						<pre>int foreach() const;</pre>
+					</div>
+					<br>
+					<div class="description">
+						Increments iterator of the list and returns (index + 1 % listsize).<br>
+						If used inside a while(), the function iterates all elements of the list and
+						stops at the end of the list, resetting iterator to the beginning.
+						Thus, elements can be accessed thanks to <a href="#get()">get()</a> function.
+					</div>
+					<br>
+					<label>Example :</label>
+					<div class="code">
+						<pre>int main(){</pre>
+						<pre>	Liste&lt;int&gt; liste;</pre>
+						<pre>	liste.add(1);</pre>
+						<pre>	liste.add(2);</pre>
+						<pre>	liste.add(3);</pre>
+						<pre>	while(int i = liste.foreach()){</pre>
+						<pre>		cout << "The value of element " << i << " is: " << liste.get() << endl;</pre>
+						<pre>	}</pre>
+						<pre>}</pre>
+					</div>
+					<br>
+					<label>Output :</label>
+					<div class="output">
+						<pre>The value of element 1 is: 1</pre>
+						<pre>The value of element 2 is: 2</pre>
+						<pre>The value of element 3 is: 3</pre>
+					</div>
+				</fieldset>
+				
+				<fieldset id="get()">
+					<legend>Liste::get()</legend>
+					<div class="prototype">
+						<pre>      Type&amp; get();</pre>
+						<pre>const Type&amp; get() const;</pre>
+					</div>
+					<br>
+					<div class="description">
+						Returns a reference to the element at position defined by the iterator of list.<br>
+						If used outside a <a href="#foreach()">foreach()</a> loop, the function throws a runtime_error exception.
+					</div>
+					<br>
+					<label>Example :</label>
+					<div class="code">
+						<pre>int main(){</pre>
+						<pre>	Liste&lt;int&gt; liste;</pre>
+						<pre>	liste.add(1);</pre>
+						<pre>	liste.add(2);</pre>
+						<pre>	liste.add(3);</pre>
+						<pre>	cout << "The list contains: ";</pre>
+						<pre>	while(liste.foreach()){</pre>
+						<pre>		cout << liste.get() << " ";</pre>
+						<pre>	}</pre>
+						<pre>}</pre>
+					</div>
+					<br>
+					<label>Output :</label>
+					<div class="output">
+						<pre>The list contains: 1 2 3</pre>
+					</div>
+				</fieldset>
+				
+				<fieldset id="reset()">
+					<legend>Liste::reset()</legend>
+					<div class="prototype">
+						<pre>void reset() const;</pre>
+					</div>
+					<br>
+					<div class="description">
+						Reset the iterator at the beginning of the list.<br>
+						This function is implicitely called when the <a href="#foreach()">foreach()</a> function reaches the end of the list.
+						However, if the <a href="#foreach()">foreach()</a> loop can be interrupted by a throw or a return, reset() must be called before,
+						otherwise the next use of <a href="#foreach()">foreach()</a> loop on the same instance causes undefined behavior.
+					</div>
+					<br>
+					<label>Example :</label>
+					<div class="code">
+						<pre>bool greaterthan(const Liste<int> &liste, int n){</pre>
+						<pre>	while(liste.foreach()){</pre>
+						<pre>		if(liste.get()>n){</pre>
+						<pre>			// Here reset() must be called before return statement</pre>
+						<pre>			liste.reset();</pre>
+						<pre>			return true;</pre>
+						<pre>		}</pre>
+						<pre>	}</pre>
+						<pre>	// Here we don't need to call reset() as foreach() loop has terminated</pre>
+						<pre>	return false;</pre>
+						<pre>}</pre>
+						<br>
+						<pre>int main(){</pre>
+						<pre>	Liste&lt;int&gt; liste;</pre>
+						<pre>	liste.add(1);</pre>
+						<pre>	liste.add(2);</pre>
+						<pre>	liste.add(3);</pre>
+						<pre>	if(greaterthan(liste,2)) cout << "The list contains numbers greater than 2." << endl;</pre>
+						<pre>	else cout << "The list doesn't contain numbers greater than 2." << endl;</pre>
+						<pre>	liste.pop_back();</pre>
+						<pre>	if(greaterthan(liste,2)) cout << "The list contains numbers greater than 2." << endl;</pre>
+						<pre>	else cout << "The list doesn't contain numbers greater than 2." << endl;</pre>
+						<pre>}</pre>
+					</div>
+					<br>
+					<label>Output :</label>
+					<div class="output">
+						<pre>The list contains numbers greater than 2.</pre>
+						<pre>The list doesn't contain numbers greater than 2.</pre>
+					</div>
+				</fieldset>
+			</section>
+		</article>
+	</body>
+</html>
