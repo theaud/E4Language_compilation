@@ -4,10 +4,9 @@ using namespace std;
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "E4Grammaire.h"
+#include "E4grammaire.h"
 
 //fonctions.h
-
 char* lirestr(FILE *file){
     char temp[100];
     fgets(temp,100,file);
@@ -16,29 +15,20 @@ char* lirestr(FILE *file){
     strcpy(str,temp);
     return str;}
 
-E4Grammaire::E4Grammaire(char *str){
+
+Grammaire::Grammaire(char *str){
     char *substr = strtok(str,"=|");
     nom = substr;
     while(substr = strtok(NULL,"=|")) valeur.add(substr);
 }
 
-ostream& operator<<(ostream &os, const E4Grammaire &grammaire){
+ostream& operator<<(ostream &os, const Grammaire &grammaire){
     os << "nom = " << grammaire.nom << endl;
-   // os << "valeur = " << grammaire.valeur << endl;
+    os << "valeur = " << grammaire.valeur << endl;
     return os;}
 
-void E4Grammaire::afficher()
-{
-
-    cout << "nom = " << nom << endl;
-
-    //cout << "valeur = " << valeur << endl;
-
-
-}
-
-Liste<E4Grammaire> E4Grammaire::getgrammaires(){
-    Liste<E4Grammaire> grammaires;
+Liste<Grammaire> Grammaire::getgrammaires(){
+    Liste<Grammaire> grammaires;
     char *str;
     FILE *file = fopen("E4grammaire.txt","r");
     if(fgetc(file)!=EOF){
@@ -52,10 +42,10 @@ Liste<E4Grammaire> E4Grammaire::getgrammaires(){
     else cout << "* Erreur : le fichier E4grammaire.txt est absent ou vide ! *" << endl;
     return grammaires;}
 
-const string& E4Grammaire::getnom()const{
+const string& Grammaire::getnom()const{
     return nom;
 }
 
-const Liste<string>& E4Grammaire::getvaleur()const{
+const Liste<string>& Grammaire::getvaleur()const{
     return valeur;
 }
