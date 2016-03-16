@@ -11,7 +11,7 @@ int main(){
 	Grammaire grammaire = Grammaire::getgrammaire();
 	cout << grammaire << endl;
 	while(grammaire.getregles().foreach()){
-		cout << "recursivite : ";
+		cout << "r\202cursivit\202 : ";
 		if(grammaire.getregles().get().isrecursive()) cout << "vrai";
 		else cout << "faux";
 		cout << endl;
