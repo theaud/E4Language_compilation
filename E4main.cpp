@@ -13,13 +13,13 @@ int main(int argc, char *argv[]){
 
 
     affichage(grammaires);
-
-
+cout<<"z";
+return 0;
 }
 
  void affichage(Liste<Regle> grammaires)
 {
-    cout << "--------------- La grammmaire initiale --------------------------"<<endl;
+    cout << "--------------- La grammmaire -----------------------------------"<<endl;
     while(grammaires.foreach())
     {cout << grammaires.get() << " "<<endl;}
     cout << "-----------------------------------------------------------------"<<endl;
