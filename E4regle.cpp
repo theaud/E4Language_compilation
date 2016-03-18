@@ -12,14 +12,22 @@ Regle::Regle(char *str){
 	while(substr = strtok(NULL,"=|")) valeur.add(substr);
 }
 
+Regle::Regle(const string &nom, const Liste<string> &valeur){
+	this->nom = nom;
+	this->valeur = valeur;
+}
+
 ostream& operator<<(ostream &os, const Regle &regle){
-	os << "nom = " << regle.nom << endl;
-	os << "valeur = " << regle.valeur << endl;
+	os << "Regle [nom = " << regle.nom << ", valeur = " << regle.valeur << "]";
 	return os;
 }
 
 const string& Regle::getnom()const{
 	return nom;
+}
+
+Liste<string>& Regle::getvaleur(){
+	return valeur;
 }
 
 const Liste<string>& Regle::getvaleur()const{
@@ -28,6 +36,8 @@ const Liste<string>& Regle::getvaleur()const{
 
 bool Regle::isrecursive()const{
 	while(valeur.foreach()){
-		if(strstr(valeur.get().c_str(),nom.c_str())) return true;}
+		if(strstr(valeur.get().c_str(),nom.c_str())){
+			valeur.reset();
+			return true;}}
 	return false;
 }
