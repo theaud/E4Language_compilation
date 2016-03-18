@@ -9,13 +9,11 @@ char* lirestr(FILE *file){
 	if(char *index = strchr(temp,'\n')) *index = 0;
 	char *str = (char*)malloc(sizeof(char)*(strlen(temp)+1));
 	strcpy(str,temp);
-	return str;}
-
+	return str;
+}
 
 ostream& operator<<(ostream &os, const Grammaire &grammaire){
-
-		while(grammaire.regles.foreach())
-		{os << grammaire.regles.get() << " ";}
+	while(grammaire.regles.foreach()) os << grammaire.regles.get() << endl;
 	return os;
 }
 
@@ -41,5 +39,19 @@ const Liste<Regle>& Grammaire::getregles()const{
 }
 
 void Grammaire::derecursiver(){
-	//A faire
+	for(int i=0; i<regles.size(); i++){
+		if(regles.at(i).isrecursive()){
+			Liste<string> &valeur = regles.at(i).getvaleur();
+			string nom = regles.at(i).getnom();
+			string str;
+			Liste<string> valeurprime;
+			for(int j=0; j<valeur.size(); j++){
+				if(strstr(valeur.at(j).c_str(),nom.c_str())){
+					str = valeur.remove(j);
+					str = str.substr(nom.size(),str.size()-1);
+					valeurprime.add(str+nom+"'");}
+				else valeur.at(j) = valeur.at(j)+nom+"'";}
+			Regle regleprime(nom+"'",valeurprime);
+			regles.insert(i+1,regleprime);
+			i++;}}
 }

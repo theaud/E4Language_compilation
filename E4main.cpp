@@ -9,6 +9,7 @@ using namespace std;
 
 int main(){
 	Grammaire grammaire = Grammaire::getgrammaire();
+	cout << "Grammaire :" << endl;
 	cout << grammaire << endl;
 	Liste<Regle> regles = grammaire.getregles();
 	cout << "r\202cursivit\202 :" << endl;
@@ -17,6 +18,10 @@ int main(){
 		if(regles.get().isrecursive()) cout << "vrai";
 		else cout << "faux";
 		cout << endl;}
+	cout << endl;
+	grammaire.derecursiver();
+	cout << "Grammaire d\202r\202cursiv\202e :" << endl;
+	cout << grammaire << endl;
 }
 
 
