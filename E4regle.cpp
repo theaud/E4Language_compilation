@@ -13,8 +13,8 @@ Regle::Regle(char *str){
 }
 
 ostream& operator<<(ostream &os, const Regle &regle){
-	os <<endl<< "nom = " << regle.nom <<"  ";
-	os << "valeur = " << regle.valeur  ;
+	os << "nom = " << regle.nom << endl;
+	os << "valeur = " << regle.valeur << endl;
 	return os;
 }
 
