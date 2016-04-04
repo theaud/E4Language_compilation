@@ -80,5 +80,31 @@ Liste<string> Grammaire::getpremier(const Regle &regle){
 		int n = indexOf(regles,str);
 		if(n>=0) premier += getpremier(regles.at(n));
 		else premier.add(str);}
-	return premier;
-}
+	return premier;}
+
+Liste<string> Grammaire::getsuivant(const Regle &regle){
+	Liste<string> suivant;
+	suivant.add("$");
+	while(regles.foreach()){
+		Liste<string> valeur = regles.get().getvaleur();
+		while(valeur.foreach()){
+			string str;
+			if(char *index = strstr(valeur.get().c_str(),regle.getnom().c_str())){
+				index += regle.getnom().size();
+				if(*index==0);
+				else if(*index!='\''){
+					str += index[0];
+					if(index[1]=='\'') str += index[1];}}
+			int n = indexOf(regles,str);
+			if(n>=0){
+				suivant += getpremier(regles.at(n));
+				/* bool test=false; */
+				for(int i=0; i<suivant.size(); i++){
+					if(!strcmp(suivant.at(i).c_str(),"#")){
+						suivant.remove(i);
+						i--;
+						/* test = true; */}}
+				/* if(test) suivant += getsuivant(regles.at(n)); */}
+			else if(str.size()>0) suivant.add(str);}
+		/* if(suivant.size()==1) suivant += getsuivant(regles.get()); */}
+	return suivant;}
