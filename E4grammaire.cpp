@@ -61,3 +61,16 @@ void Grammaire::derecursiver(){
 			regles.insert(i+1,regleprime);
 			i++;}}
 }
+
+Liste<string> Grammaire::getpremier(const Regle &regle){
+	Liste<string> premier;
+	const Liste<string> &valeur = regle.getvaleur();
+	while(valeur.foreach()){
+		string str;
+		if(valeur.get().size()>1 && valeur.get().at(1)=='\'') str = valeur.get().substr(0,2);
+		else str = valeur.get().at(0);
+		int n = indexOf(regles,str);
+		if(n>=0) premier += getpremier(regles.at(n));
+		else premier.add(str);}
+	return premier;
+}
