@@ -15,7 +15,12 @@ public :
 	const Liste<Regle>& getregles()const;
 	void derecursiver();
 	Liste<string> getpremier(const Regle &regle);
+<<<<<<< HEAD
 	Liste<string> getsuivant(const Regle &regle);
+=======
+    void table_analyseur_predictif();//meilleur nom a trouver
+
+>>>>>>> origin/master
 };
 
 #endif

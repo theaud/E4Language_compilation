@@ -80,6 +80,7 @@ Liste<string> Grammaire::getpremier(const Regle &regle){
 		int n = indexOf(regles,str);
 		if(n>=0) premier += getpremier(regles.at(n));
 		else premier.add(str);}
+<<<<<<< HEAD
 	return premier;}
 
 Liste<string> Grammaire::getsuivant(const Regle &regle){
@@ -108,3 +109,49 @@ Liste<string> Grammaire::getsuivant(const Regle &regle){
 			else if(str.size()>0) suivant.add(str);}
 		/* if(suivant.size()==1) suivant += getsuivant(regles.get()); */}
 	return suivant;}
+=======
+	return premier;
+}
+
+void Grammaire::table_analyseur_predictif()
+{
+/*
+ Donnée. Grammaire G
+Sortie. Table d’analyse M
+
+
+Pour tous A->α
+    faire
+        Pour tous terminal a dans PREMIER(α)
+            faire
+                 ajouter A α à M[A,a]
+            fin
+
+         Si ε est dans PREMIER(α)
+            si ε est dans PREMIER(α) et $ est dans SUIVANT(A)
+                ajouter A α à M[A,$]
+            sinon
+                ajouter A α à M[A,b] pour chaque terminal b dans SUIVANT(A)
+
+            fin
+         fin
+
+         Si ε est dans PREMIER(α) et $ est dans SUIVANT(A),
+            ajouter A α à M[A,$]
+        fin
+    fin
+fin
+
+ ####Faire de chaque entrée non définie de M une erreur.####
+
+ */
+    char z='e',e='r';
+    string a=""+z+e;
+
+
+
+
+}
+
+
+>>>>>>> origin/master
