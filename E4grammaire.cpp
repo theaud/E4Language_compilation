@@ -43,29 +43,21 @@ const Liste<Regle>& Grammaire::getregles()const{
 }
 
 void Grammaire::derecursiver(){
-	for(int i=0; i<regles.size(); i++)
-    {
-		if(regles.at(i).isrecursive())
-        {
+	for(int i=0; i<regles.size(); i++){
+		if(regles.at(i).isrecursive()){
 			Liste<string> &valeur = regles.at(i).getvaleur();
 			string nom = regles.at(i).getnom();
 			string str;
 			Liste<string> valeurprime;
-
-			for(int j=0; j<valeur.size(); j++)
-			{
-				if(strstr(valeur.at(j).c_str(),nom.c_str()))
-				{
+			for(int j=0; j<valeur.size(); j++){
+				if(strstr(valeur.at(j).c_str(),nom.c_str())){
 					str = valeur.remove(j);
-					str = str.substr(nom.size(),str.size()-1);
-					valeurprime.add(str+nom+"'");
-				}
-				else
-					valeur.at(j) = valeur.at(j)+nom+"'";
-			}
+					j--;
+					str = str.substr(nom.size(),str.size()-1)+nom+"'";
+					valeurprime.add(str);}
+				else valeur.at(j) = valeur.at(j)+nom+"'";}
+			valeurprime.add("#");
 			Regle regleprime(nom+"'",valeurprime);
 			regles.insert(i+1,regleprime);
-			i++;
-        }
-    }
+			i++;}}
 }
