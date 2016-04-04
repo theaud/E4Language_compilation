@@ -8,6 +8,13 @@ using namespace std;
 #include "E4regle.h"
 
 int main(){
+
+	char z='e',e='r';
+	string a="d"+z;
+	// a=""+z+e;
+	cout <<a<<endl;
+
+	/*
 	Grammaire grammaire = Grammaire::getgrammaire();
 	cout << "Grammaire :" << endl;
 	cout << grammaire << endl;
@@ -26,7 +33,7 @@ int main(){
 	cout << "Calcul des premiers :" << endl;
 	while(regles.foreach()){
 		cout << "premier(" << regles.get().getnom() << ") = ";
-		cout << grammaire.getpremier(regles.get()) << endl;}
+		cout << grammaire.getpremier(regles.get()) << endl;}*/
 }
 
 

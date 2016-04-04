@@ -115,6 +115,9 @@ fin
  ####Faire de chaque entrée non définie de M une erreur.####
 
  */
+    char z='e',e='r';
+    string a=""+z+e;
+
 
 
 
