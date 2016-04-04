@@ -62,6 +62,14 @@ void Grammaire::derecursiver(){
 			i++;}}
 }
 
+template <typename Type>
+int indexOf(const Liste<Type> &liste, string nom){
+	for(int i=0; i<liste.size(); i++){
+		if(!strcmp(liste.at(i).getnom().c_str(),nom.c_str())){
+			liste.reset();
+			return i;}}
+	return -1;}
+
 Liste<string> Grammaire::getpremier(const Regle &regle){
 	Liste<string> premier;
 	const Liste<string> &valeur = regle.getvaleur();
