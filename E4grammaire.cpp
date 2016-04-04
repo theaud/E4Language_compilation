@@ -82,3 +82,42 @@ Liste<string> Grammaire::getpremier(const Regle &regle){
 		else premier.add(str);}
 	return premier;
 }
+
+void Grammaire::table_analyseur_predictif()
+{
+/*
+ Donnée. Grammaire G
+Sortie. Table d’analyse M
+
+
+Pour tous A->α
+    faire
+        Pour tous terminal a dans PREMIER(α)
+            faire
+                 ajouter A α à M[A,a]
+            fin
+
+         Si ε est dans PREMIER(α)
+            si ε est dans PREMIER(α) et $ est dans SUIVANT(A)
+                ajouter A α à M[A,$]
+            sinon
+                ajouter A α à M[A,b] pour chaque terminal b dans SUIVANT(A)
+
+            fin
+         fin
+
+         Si ε est dans PREMIER(α) et $ est dans SUIVANT(A),
+            ajouter A α à M[A,$]
+        fin
+    fin
+fin
+
+ ####Faire de chaque entrée non définie de M une erreur.####
+
+ */
+
+
+
+}
+
+
