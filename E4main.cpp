@@ -9,15 +9,20 @@ using namespace std;
 
 int main(){
 	Grammaire grammaire = Grammaire::getgrammaire();
-	cout << "Grammaire :" << endl;
-	cout << grammaire << endl;
+	cout << "Grammaire :" << endl<<grammaire << endl;
+
 	Liste<Regle> regles = grammaire.getregles();
 	cout << "r\202cursivit\202 :" << endl;
-	while(regles.foreach()){
+	while(regles.foreach())
+	{
 		cout << "r\212gle " << regles.get().getnom() << " = ";
-		if(regles.get().isrecursive()) cout << "vrai";
-		else cout << "faux";
-		cout << endl;}
+
+		if(regles.get().isrecursive())
+			cout << "vrai"<< endl;
+		else
+			cout << "faux"<< endl;
+	}
+
 	cout << endl;
 	grammaire.derecursiver();
 	cout << "Grammaire d\202r\202cursiv\202e :" << endl;

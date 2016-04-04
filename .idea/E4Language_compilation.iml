@@ -7,7 +7,7 @@
       <sourceFolder url="file://$MODULE_DIR$/E4regle.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/E4grammaire.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/E4grammaire.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/E4Regle.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/E4regle.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/CMakeLists.txt" isTestSource="false" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
