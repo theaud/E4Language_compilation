@@ -14,6 +14,7 @@ public :
 	static Grammaire getgrammaire();
 	const Liste<Regle>& getregles()const;
 	void derecursiver();
+	Liste<string> getpremier(const Regle &regle);
 };
 
 #endif
