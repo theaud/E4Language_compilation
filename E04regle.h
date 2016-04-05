@@ -2,7 +2,7 @@
 #ifndef REGLE
 #define REGLE
 #include <string>
-#include "E4liste.h"
+#include "E04liste.h"
 
 class Regle{
 private :

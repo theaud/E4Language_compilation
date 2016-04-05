@@ -1,8 +1,8 @@
 
 #ifndef GRAMMAIRE
 #define GRAMMAIRE
-#include "E4liste.h"
-#include "E4regle.h"
+#include "E04liste.h"
+#include "E04regle.h"
 
 class Grammaire{
 private :
@@ -15,12 +15,8 @@ public :
 	const Liste<Regle>& getregles()const;
 	void derecursiver();
 	Liste<string> getpremier(const Regle &regle);
-<<<<<<< HEAD
 	Liste<string> getsuivant(const Regle &regle);
-=======
-    void table_analyseur_predictif();//meilleur nom a trouver
-
->>>>>>> origin/master
+    void table_analyseur_predictif();
 };
 
 #endif

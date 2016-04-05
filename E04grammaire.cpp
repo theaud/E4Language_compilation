@@ -1,6 +1,5 @@
 
-#include "E4grammaire.h"
-
+#include "E04grammaire.h"
 
 //fonctions.h
 char* lirestr(FILE *file){
@@ -80,7 +79,6 @@ Liste<string> Grammaire::getpremier(const Regle &regle){
 		int n = indexOf(regles,str);
 		if(n>=0) premier += getpremier(regles.at(n));
 		else premier.add(str);}
-<<<<<<< HEAD
 	return premier;}
 
 Liste<string> Grammaire::getsuivant(const Regle &regle){
@@ -109,9 +107,6 @@ Liste<string> Grammaire::getsuivant(const Regle &regle){
 			else if(str.size()>0) suivant.add(str);}
 		/* if(suivant.size()==1) suivant += getsuivant(regles.get()); */}
 	return suivant;}
-=======
-	return premier;
-}
 
 void Grammaire::table_analyseur_predictif()
 {
@@ -148,10 +143,4 @@ fin
     char z='e',e='r';
     string a=""+z+e;
 
-
-
-
 }
-
-
->>>>>>> origin/master

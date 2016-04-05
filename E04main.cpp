@@ -4,17 +4,10 @@ using namespace std;
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "E4grammaire.h"
-#include "E4regle.h"
+#include "E04grammaire.h"
+#include "E04regle.h"
 
 int main(){
-
-	char z='e',e='r';
-	string a="d"+z;
-	// a=""+z+e;
-	cout <<a<<endl;
-
-	/*
 	Grammaire grammaire = Grammaire::getgrammaire();
 	cout << "Grammaire :" << endl;
 	cout << grammaire << endl;
@@ -33,17 +26,13 @@ int main(){
 	cout << "Calcul des premiers :" << endl;
 	while(regles.foreach()){
 		cout << "premier(" << regles.get().getnom() << ") = ";
-<<<<<<< HEAD
 		cout << grammaire.getpremier(regles.get()) << endl;}
 	cout << endl;
-	cout << "Calcul des suivants :" << endl;
+	/* cout << "Calcul des suivants :" << endl;
 	while(regles.foreach()){
 		cout << "suivant(" << regles.get().getnom() << ") = ";
-		cout << grammaire.getsuivant(regles.get()) << endl;}
+		cout << grammaire.getsuivant(regles.get()) << endl;} */
 	system("PAUSE");
-=======
-		cout << grammaire.getpremier(regles.get()) << endl;}*/
->>>>>>> origin/master
 }
 
 

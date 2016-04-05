@@ -4,7 +4,7 @@ using namespace std;
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "E4regle.h"
+#include "E04regle.h"
 
 Regle::Regle(char *str){
 	char *substr = strtok(str,"=|");
