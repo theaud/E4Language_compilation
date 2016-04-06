@@ -20,7 +20,7 @@ ostream& operator<<(ostream &os, const Grammaire &grammaire){
 Grammaire Grammaire::getgrammaire(){
 	Grammaire grammaire;
 	char *str;
-	FILE *file = fopen("E4grammaire.txt","r");
+	FILE *file = fopen("E04grammaire.txt","r");
 	if(fgetc(file)!=EOF)
     {
 		fseek(file,-1,SEEK_CUR);
@@ -33,7 +33,7 @@ Grammaire Grammaire::getgrammaire(){
         }
 		fclose(file);
     }
-	else cout << "* Erreur : le fichier E4grammaire.txt est absent ou vide ! *" << endl;
+	else cout << "* Erreur : le fichier E04grammaire.txt est absent ou vide ! *" << endl;
 	return grammaire;
 }
 
@@ -81,31 +81,40 @@ Liste<string> Grammaire::getpremier(const Regle &regle){
 		else premier.add(str);}
 	return premier;}
 
+template <typename Type>
+void unique(Liste<Type> &liste){
+	for(int i=0; i<liste.size(); i++){
+		for(int j=i+1; j<liste.size(); j++){
+			if(!strcmp(liste.at(i).c_str(),liste.at(j).c_str())){
+				liste.remove(j);
+				j--;}}}}
+
 Liste<string> Grammaire::getsuivant(const Regle &regle){
 	Liste<string> suivant;
 	suivant.add("$");
-	while(regles.foreach()){
-		Liste<string> valeur = regles.get().getvaleur();
-		while(valeur.foreach()){
-			string str;
-			if(char *index = strstr(valeur.get().c_str(),regle.getnom().c_str())){
+	for(int i=0; i<regles.size(); i++){
+		Liste<string> valeur = regles.at(i).getvaleur();
+		for(int j=0; j<valeur.size(); j++){
+			if(char *index = strstr(valeur.at(j).c_str(),regle.getnom().c_str())){
 				index += regle.getnom().size();
-				if(*index==0);
-				else if(*index!='\''){
+				if(*index==0 && strcmp(regle.getnom().c_str(),regles.at(i).getnom().c_str())){
+					suivant += getsuivant(regles.at(i));}
+				if(*index!=0 && *index!='\''){
+					string str;
 					str += index[0];
-					if(index[1]=='\'') str += index[1];}}
-			int n = indexOf(regles,str);
-			if(n>=0){
-				suivant += getpremier(regles.at(n));
-				/* bool test=false; */
-				for(int i=0; i<suivant.size(); i++){
-					if(!strcmp(suivant.at(i).c_str(),"#")){
-						suivant.remove(i);
-						i--;
-						/* test = true; */}}
-				/* if(test) suivant += getsuivant(regles.at(n)); */}
-			else if(str.size()>0) suivant.add(str);}
-		/* if(suivant.size()==1) suivant += getsuivant(regles.get()); */}
+					if(index[1]=='\'') str += index[1];
+					int n = indexOf(regles,str);
+					if(n>=0){
+						suivant += getpremier(regles.at(n));
+						bool test=false;
+						for(int k=0; k<suivant.size(); k++){
+							if(!strcmp(suivant.at(k).c_str(),"#")){
+								suivant.remove(k);
+								k--;
+								test = true;}}
+						if(test) suivant += getsuivant(regles.at(n));}
+					else if(str.size()>0) suivant.add(str);}}}}
+	unique(suivant);
 	return suivant;}
 
 void Grammaire::table_analyseur_predictif()
