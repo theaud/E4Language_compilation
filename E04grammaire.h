@@ -16,7 +16,8 @@ public :
 	void derecursiver();
 	Liste<string> getpremier(const Regle &regle);
 	Liste<string> getsuivant(const Regle &regle);
-    void table_analyseur_predictif();
+	Liste<string> getterminaux();
+    void print_table_analyseur();
 };
 
 #endif

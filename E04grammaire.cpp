@@ -62,12 +62,18 @@ void Grammaire::derecursiver(){
 }
 
 template <typename Type>
-int indexOf(const Liste<Type> &liste, string nom){
+int indexOf(const Liste<Type> &liste, string str){
 	for(int i=0; i<liste.size(); i++){
-		if(!strcmp(liste.at(i).getnom().c_str(),nom.c_str())){
-			liste.reset();
-			return i;}}
+		if(!strcmp(liste.at(i).getnom().c_str(),str.c_str())) return i;}
 	return -1;}
+
+
+template <typename Type>
+bool contains(const Liste<Type> &liste, string str){
+	for(int i=0; i<liste.size(); i++){
+		if(!strcmp(liste.at(i).c_str(),str.c_str())) return true;}
+	return false;}
+
 
 Liste<string> Grammaire::getpremier(const Regle &regle){
 	Liste<string> premier;
@@ -117,39 +123,37 @@ Liste<string> Grammaire::getsuivant(const Regle &regle){
 	unique(suivant);
 	return suivant;}
 
-void Grammaire::table_analyseur_predictif()
-{
-/*
- Donnée. Grammaire G
-Sortie. Table d’analyse M
+Liste<string> Grammaire::getterminaux(){
+	Liste<string> terminaux;
+	while(regles.foreach()){
+		const Liste<string> &valeur = regles.get().getvaleur();
+		while(valeur.foreach()){
+			for(int i=0; i<valeur.get().size(); i++){
+				string str;
+				str += valeur.get().at(i);
+				if(i<valeur.get().size()-1 && valeur.get().at(i+1)=='\''){
+					str += valeur.get().at(i+1);
+					i++;}
+				if(indexOf(regles,str)<0) terminaux.add(str);}}}
+	unique(terminaux);
+	return terminaux;
+}
 
-
-Pour tous A->α
-    faire
-        Pour tous terminal a dans PREMIER(α)
-            faire
-                 ajouter A α à M[A,a]
-            fin
-
-         Si ε est dans PREMIER(α)
-            si ε est dans PREMIER(α) et $ est dans SUIVANT(A)
-                ajouter A α à M[A,$]
-            sinon
-                ajouter A α à M[A,b] pour chaque terminal b dans SUIVANT(A)
-
-            fin
-         fin
-
-         Si ε est dans PREMIER(α) et $ est dans SUIVANT(A),
-            ajouter A α à M[A,$]
-        fin
-    fin
-fin
-
- ####Faire de chaque entrée non définie de M une erreur.####
-
- */
-    char z='e',e='r';
-    string a=""+z+e;
-
+void Grammaire::print_table_analyseur(){
+	Liste<string> terminaux = getterminaux();
+	for(int i=0; i<terminaux.size(); i++){
+		if(!strcmp(terminaux.at(i).c_str(),"#")){
+			terminaux.remove(i);
+			i--;}}
+	terminaux.add("$");
+	cout << "\t" << terminaux << endl;
+	while(regles.foreach()){
+		cout << regles.get().getnom() << "\t";
+		Liste<string> premier = getpremier(regles.get());
+		Liste<string> suivant = getsuivant(regles.get());
+		while(terminaux.foreach()){
+			if(contains(premier,terminaux.get())) cout << "pr ";
+			else if(contains(suivant,terminaux.get())) cout << "su ";
+			else cout << "   ";}
+		cout << endl;}
 }

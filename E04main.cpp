@@ -27,11 +27,12 @@ int main(){
 	while(regles.foreach()){
 		cout << "premier(" << regles.get().getnom() << ") = ";
 		cout << grammaire.getpremier(regles.get()) << endl;}
-	cout << endl;
-	cout << "Calcul des suivants :" << endl;
+	cout << endl << "Calcul des suivants :" << endl;
 	while(regles.foreach()){
 		cout << "suivant(" << regles.get().getnom() << ") = ";
 		cout << grammaire.getsuivant(regles.get()) << endl;}
+	cout << endl << "Table d'analyse syntaxique :" << endl;
+	grammaire.print_table_analyseur();
 	system("PAUSE");
 }
 
