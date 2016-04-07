@@ -32,7 +32,7 @@ int main(){
 		cout << "suivant(" << regles.get().getnom() << ") = ";
 		cout << grammaire.getsuivant(regles.get()) << endl;}
 	cout << endl << "Table d'analyse syntaxique :" << endl;
-	grammaire.print_table_analyseur();
+	grammaire.printanalysetab();
 	system("PAUSE");
 }
 

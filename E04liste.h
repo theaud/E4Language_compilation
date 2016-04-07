@@ -1,4 +1,11 @@
-//liste.h par Baptiste Thémine
+
+/**
+	Classe Liste par Baptiste Thémine
+	
+	Création de liste pour n'importe quel type de variable.
+	Combine les avantages des objets std::vector, std::list, et std::map.
+	Consultez listehelp.html pour des explications détaillés sur chaque fonction.
+**/
 
 #ifndef LISTE
 #define LISTE
@@ -23,13 +30,6 @@ using namespace std;
 					|| typeid(x)==typeid(float) || typeid(x)==typeid(double) || typeid(x)==typeid(long double) \
 					|| typeid(x)==typeid(string))
 
-/**
-	Classe Liste
-	Création de liste pour n'importe quel type de variable.
-	Combine les avantages des objects std::vector, std::list, et std::map.
-	Consultez listehelp.html pour des explications détaillés sur chaque fonction.
-**/
-
 template <typename Type>
 class Liste{
 private :
@@ -39,11 +39,17 @@ private :
 		char *key;
 		struct LinkedList *next;
 	}LinkedList;
-	LinkedList *liste;
+	LinkedList *head;
 	int listsize;
+	
 	//Variables foreach
-	mutable LinkedList *iterator;
-	mutable int index;
+	typedef struct Iterator{
+		LinkedList *ptr;
+		int index;
+		struct Iterator *next;
+		Iterator():ptr(NULL),index(0),next(NULL){}
+	}Iterator;
+	mutable Iterator *iterator;
 	
 	//Fonction de copie de chaîne de caractères
 	char* copier(const char *str){
@@ -80,38 +86,74 @@ private :
 		maillon1 = maillon2;
 		maillon1->next = temp;}
 	
+	void supprimer(LinkedList *&maillon){
+		LinkedList *next = maillon->next;
+		if(iterator->ptr==maillon){
+			if(iterator->index<2){
+				iterator->ptr = NULL;
+				iterator->index = 0;}
+			else{
+				iterator->ptr = parcourir(head,iterator->index-2);
+				iterator->index--;}}
+		listsize--;
+		free(maillon->key);
+		delete maillon;
+		maillon = next;}
+	
 	void liberer(LinkedList *maillon){
 		if(maillon){
 			liberer(maillon->next);
 			free(maillon->key);
 			delete maillon;}}
-
+	
+	//Fonctions callback
+	static int comparer(const Type &val1, const Type &val2){
+		if(val1<val2) return -1;
+		else if(val2<val1) return 1;
+		else return 0;}
+	
+	void trier(int (*callback)(const Type&,const Type&), int tri){
+		if(head){
+			LinkedList *next = head->next;
+			LinkedList *sort = head;
+			sort->next = NULL;
+			head = next;
+			while(head){
+				next = head->next;
+				bool test=true;
+				if(tri*callback(head->data,sort->data)<0){
+					inserer(sort,head);
+					test = false;}
+				for(LinkedList *maillon = sort; test; maillon = maillon->next){
+					if(maillon->next==NULL || tri*callback(head->data,maillon->data)>=0 && tri*callback(head->data,maillon->next->data)<0){
+						inserer(maillon->next,head);
+						test = false;}}
+				head = next;}
+			head = sort;}}
+	
 public :
 	//Constructeurs & destructeur
-	Liste():liste(NULL),listsize(0),iterator(NULL),index(0){}
+	Liste():head(NULL),listsize(0),iterator(new Iterator()){}
 	
 	Liste(const Liste<Type> &liste){
-		this->liste = NULL;
+		head = NULL;
 		listsize = 0;
-		iterator = NULL;
-		index = 0;
+		iterator = new Iterator();
 		concat(liste);}
 	
 	#ifdef ALLOW_INITIALIZER_LIST
 	Liste(const initializer_list<Type> &args){
-		liste = NULL;
+		head = NULL;
 		listsize = 0;
-		iterator = NULL;
-		index = 0;
+		iterator = new Iterator();
 		concat(args);}
 	#endif
 	
 	~Liste(){
-		liberer(liste);
-		liste = NULL;
+		liberer(head);
+		head = NULL;
 		listsize = 0;
-		iterator = NULL;
-		index = 0;}
+		iterator = new Iterator();}
 	
 	//Opérateurs
 	Liste& operator=(const Liste<Type> &liste){
@@ -143,53 +185,51 @@ public :
 	
 	friend bool operator==(const Liste<Type> &liste1, const Liste<Type> &liste2){
 		if(liste1.size()!=liste2.size()) return false;
-		while(liste1.foreach() && liste2.foreach()){
-			if(!(liste1.get()==liste2.get())){
-				liste1.reset();
-				liste2.reset();
-				return false;}}
-		liste1.reset();
-		liste2.reset();
+		LinkedList *maillon1 = liste1.head;
+		LinkedList *maillon2 = liste2.head;
+		while(maillon1 && maillon2){
+			if(!(maillon1->data==maillon2->data)){
+				return false;}
+			maillon1 = maillon1->next;
+			maillon2 = maillon2->next;}
 		return true;}
 	
 	friend bool operator!=(const Liste<Type> &liste1, const Liste<Type> &liste2){
 		if(liste1.size()!=liste2.size()) return true;
-		while(liste1.foreach() && liste2.foreach()){
-			if(!(liste1.get()==liste2.get())){
-				liste1.reset();
-				liste2.reset();
-				return true;}}
-		liste1.reset();
-		liste2.reset();
+		LinkedList *maillon1 = liste1.head;
+		LinkedList *maillon2 = liste2.head;
+		while(maillon1 && maillon2){
+			if(!(maillon1->data==maillon2->data)){
+				return true;}
+			maillon1 = maillon1->next;
+			maillon2 = maillon2->next;}
 		return false;}
 	
 	friend ostream& operator<<(ostream &os, const Liste<Type> &liste){
 		if(liste.size()>0){
+			LinkedList *maillon;
 			if(istypesimple(liste.front())){
 				os << "[";
-				while(int i = liste.foreach()){
-					os << liste.get();
-					if(i<liste.size()) os << ", ";}
+				for(maillon = liste.head; maillon; maillon = maillon->next){
+					os << maillon->data;
+					if(maillon->next) os << ", ";}
 				os << "]";}
 			else{
-				os << "----------------------------------------" << endl << endl;
-				while(liste.foreach()){
-					os << liste.get() << endl;
-					os << "----------------------------------------" << endl << endl;}}}
+				for(maillon = liste.head; maillon; maillon = maillon->next) os << maillon->data << endl;}}
 		return os;}
 	
 	Type& operator[](const char *key){
 		if(key==NULL) throw runtime_error("Error in called funtion 'Type& Liste::operator[](const char *key)' : Parameter key is NULL.");
-		LinkedList *maillon = liste;
+		LinkedList *maillon = head;
 		while(maillon){
 			if(maillon->key && !strcmp(maillon->key,key)) return maillon->data;
 			maillon = maillon->next;}
 		listsize++;
-		return ajouter(liste,creer(key,Type()))->data;}
+		return ajouter(head,creer(key,Type()))->data;}
 	
 	const Type& operator[](const char *key)const{
 		if(key==NULL) throw runtime_error("Error in called funtion 'const Type& Liste::operator[](const char *key) const' : Parameter key is NULL.");
-		LinkedList *maillon = liste;
+		LinkedList *maillon = head;
 		while(maillon){
 			if(maillon->key && !strcmp(maillon->key,key)) return maillon->data;
 			maillon = maillon->next;}
@@ -198,102 +238,118 @@ Try to use a non const list to create a new element with the specified key.");}
 	
 	//Accesseurs
 	Type& front(){
-		if(liste==NULL) throw runtime_error("Error in called funtion 'Type& Liste::front()' : List is empty.");
-		return liste->data;}
+		if(head==NULL) throw runtime_error("Error in called funtion 'Type& Liste::front()' : List is empty.");
+		return head->data;}
 	
 	const Type& front()const{
-		if(liste==NULL) throw runtime_error("Error in called funtion 'const Type& Liste::front() const' : List is empty.");
-		return liste->data;}
+		if(head==NULL) throw runtime_error("Error in called funtion 'const Type& Liste::front() const' : List is empty.");
+		return head->data;}
 	
 	Type& back(){
-		if(liste==NULL) throw runtime_error("Error in called funtion 'Type& Liste::back()' : List is empty.");
-		return parcourir(liste)->data;}
+		if(head==NULL) throw runtime_error("Error in called funtion 'Type& Liste::back()' : List is empty.");
+		return parcourir(head)->data;}
 	
 	const Type& back()const{
-		if(liste==NULL) throw runtime_error("Error in called funtion 'const Type& Liste::back() const' : List is empty.");
-		return parcourir(liste)->data;}
+		if(head==NULL) throw runtime_error("Error in called funtion 'const Type& Liste::back() const' : List is empty.");
+		return parcourir(head)->data;}
 	
 	Type& at(int n){
 		if(n<0 || n>=listsize) throw out_of_range("Error in called funtion 'Type& Liste::at(int n)' : Index out of range.");
-		return parcourir(liste,n)->data;}
+		return parcourir(head,n)->data;}
 	
 	const Type& at(int n)const{
 		if(n<0 || n>=listsize) throw out_of_range("Error in called funtion 'const Type& Liste::at(int n) const' : Index out of range.");
-		return parcourir(liste,n)->data;}
+		return parcourir(head,n)->data;}
 	
 	//Modificateurs
 	void add(const Type &val){
-		ajouter(liste,creer(NULL,val));
+		ajouter(head,creer(NULL,val));
 		listsize++;}
 	
 	void push_front(const Type &val){
-		inserer(liste,creer(NULL,val));
+		inserer(head,creer(NULL,val));
 		listsize++;}
 	
 	void push_back(const Type &val){
-		ajouter(liste,creer(NULL,val));
+		ajouter(head,creer(NULL,val));
 		listsize++;}
 	
 	void insert(int n, const Type &val){
 		if(n<0 || n>listsize) throw out_of_range("Error in called funtion 'void Liste::insert(int n,const Type &val)' : Index out of range.");
 		LinkedList *maillon = creer(NULL,val);
-		if(n==0 || liste==NULL) inserer(liste,maillon);
-		else inserer(parcourir(liste,n-1)->next,maillon);
+		if(n==0 || head==NULL) inserer(head,maillon);
+		else inserer(parcourir(head,n-1)->next,maillon);
 		listsize++;}
 	
 	Type pop_front(){
-		if(liste==NULL) throw runtime_error("Error in called funtion 'Type Liste::pop_front()' : List is empty.");
+		if(head==NULL) throw runtime_error("Error in called funtion 'Type Liste::pop_front()' : List is empty.");
 		return remove(0);}
 	
 	Type pop_back(){
-		if(liste==NULL) throw runtime_error("Error in called funtion 'Type Liste::pop_back()' : List is empty.");
+		if(head==NULL) throw runtime_error("Error in called funtion 'Type Liste::pop_back()' : List is empty.");
 		return remove(listsize-1);}
 	
 	Type remove(int n){
 		if(n<0 || n>=listsize) throw out_of_range("Error in called funtion 'Type Liste::remove(int n)' : Index out of range.");
-		LinkedList *temp;
-		if(n==0 || liste->next==NULL){
-			temp = liste;
-			liste = liste->next;}
+		Type val;
+		if(n==0){
+			val = head->data;
+			supprimer(head);}
 		else{
-			LinkedList *maillon = parcourir(liste,n-1);
-			temp = maillon->next;
-			maillon->next = maillon->next->next;}
-		if(iterator==temp) iterator = iterator->next;
-		listsize--;
-		Type val = temp->data;
-		free(temp->key);
-		delete temp;
+			LinkedList *maillon = parcourir(head,n-1);
+			val = maillon->next->data;
+			supprimer(maillon->next);}
 		return val;}
 	
 	Type remove(const char *key){
-		if(liste==NULL) throw runtime_error("Error in called funtion 'Type Liste::remove(const char *key)' : List is empty.");
+		if(head==NULL) throw runtime_error("Error in called funtion 'Type Liste::remove(const char *key)' : List is empty.");
 		if(key==NULL) throw runtime_error("Error in called funtion 'Type Liste::remove(const char *key)' : Parameter key is NULL.");
-		LinkedList *maillon = liste, *temp = NULL;
-		if(liste->next==NULL || !strcmp(liste->key,key)){
-			temp = liste;
-			liste = liste->next;}
+		Type val;
+		if(!strcmp(head->key,key)){
+			val = head->data;
+			supprimer(head);}
 		else{
+			LinkedList *maillon = head, *temp = NULL;
 			while(maillon->next && temp==NULL){
 				if(maillon->next->key && !strcmp(maillon->next->key,key)) temp = maillon->next;
 				else maillon = maillon->next;}
 			if(temp==NULL) throw out_of_range("Error in called funtion 'Type Liste::remove(const char *key)' : Unable to access element with the specified key.");
-			maillon->next = maillon->next->next;}
-		if(iterator==temp) iterator = iterator->next;
-		listsize--;
-		Type val = temp->data;
-		free(temp->key);
-		delete temp;
+			val = maillon->next->data;
+			supprimer(maillon->next);}
 		return val;}
+	
+	void removeAll(const Type &val){
+		while(head && head->data==val) supprimer(head);
+		if(head && head->next){
+			LinkedList *maillon = head;
+			while(maillon->next){
+				if(maillon->next->data==val) supprimer(maillon->next);
+				else maillon = maillon->next;}}}
+	
+	void removeAll(const Type &val, bool (*callback)(const Type&,const Type&)){
+		while(head && head->data==val) supprimer(head);
+		if(head && callback(head->data,val)){
+			LinkedList *maillon = head;
+			while(maillon->next){
+				if(callback(maillon->next->data,val)) supprimer(maillon->next);
+				else maillon = maillon->next;}}}
+	
+	void removeAll(const Type &val, int (*callback)(const Type&,const Type&)){
+		while(head && head->data==val) supprimer(head);
+		if(head && callback(head->data,val)==0){
+			LinkedList *maillon = head;
+			while(maillon->next){
+				if(callback(maillon->next->data,val)==0) supprimer(maillon->next);
+				else maillon = maillon->next;}}}
 	
 	void clear(){
 		this->~Liste();}
 	
 	//Opérations sur les listes
 	void concat(const Liste<Type> &liste){
-		while(liste.foreach()){
-			if(liste.iterator->key) (*this)[liste.iterator->key] = liste.get();
-			else add(liste.get());}}
+		for(LinkedList *maillon = liste.head; maillon; maillon = maillon->next){
+			if(maillon->key) (*this)[maillon->key] = maillon->data;
+			else add(maillon->data);}}
 	
 	#ifdef ALLOW_INITIALIZER_LIST
 	void concat(const initializer_list<Type> &args){
@@ -301,92 +357,103 @@ Try to use a non const list to create a new element with the specified key.");}
 	#endif
 	
 	void unique(){
-		for(int i=0; i<listsize; i++){
-			for(int j=i+1; j<listsize; j++){
-				if(at(i)==at(j)){
-					remove(j);
-					j--;}}}}
+		LinkedList *maillon1, *maillon2;
+		for(maillon1 = head; maillon1; maillon1 = maillon1->next){
+			maillon2 = maillon1;
+			while(maillon2->next){
+				if(maillon1->data==maillon2->next->data) supprimer(maillon2->next);
+				else maillon2 = maillon2->next;}}}
+	
+	void unique(bool (*callback)(const Type&,const Type&)){
+		LinkedList *maillon1, *maillon2;
+		for(maillon1 = head; maillon1; maillon1 = maillon1->next){
+			maillon2 = maillon1;
+			while(maillon2->next){
+				if(callback(maillon1->data,maillon2->next->data)) supprimer(maillon2->next);
+				else maillon2 = maillon2->next;}}}
+	
+	void unique(int (*callback)(const Type&,const Type&)){
+		LinkedList *maillon1, *maillon2;
+		for(maillon1 = head; maillon1; maillon1 = maillon1->next){
+			maillon2 = maillon1;
+			while(maillon2->next){
+				if(callback(maillon1->data,maillon2->next->data)==0) supprimer(maillon2->next);
+				else maillon2 = maillon2->next;}}}
 	
 	void sort(){
-		if(liste){
-			LinkedList *next = liste->next;
-			LinkedList *sort = liste;
-			sort->next = NULL;
-			liste = next;
-			while(liste){
-				next = liste->next;
-				bool test=true;
-				if(liste->data<sort->data){
-					inserer(sort,liste);
-					test = false;}
-				for(LinkedList *maillon = sort; test; maillon = maillon->next){
-					if(maillon->next==NULL || !(liste->data<maillon->data) && liste->data<maillon->next->data){
-						inserer(maillon->next,liste);
-						test = false;}}
-				liste = next;}
-			liste = sort;}}
+		trier(comparer,1);}
+	
+	void sort(int (*callback)(const Type&,const Type&)){
+		trier(callback,1);}
 	
 	void rsort(){
-		if(liste){
-			LinkedList *next = liste->next;
-			LinkedList *sort = liste;
-			sort->next = NULL;
-			liste = next;
-			while(liste){
-				next = liste->next;
-				bool test=true;
-				if(!(liste->data<sort->data)){
-					inserer(sort,liste);
-					test = false;}
-				for(LinkedList *maillon = sort; test; maillon = maillon->next){
-					if(maillon->next==NULL || liste->data<maillon->data && !(liste->data<maillon->next->data)){
-						inserer(maillon->next,liste);
-						test = false;}}
-				liste = next;}
-			liste = sort;}}
+		trier(comparer,-1);}
+	
+	void rsort(int (*callback)(const Type&,const Type&)){
+		trier(callback,-1);}
 	
 	//Fonctions de capacité & recherche
 	bool isempty()const{
-		return (liste==NULL);}
+		return (head==NULL);}
 	
 	int size()const{
 		return listsize;}
 	
 	bool contains(const Type &val)const{
-		while(foreach()){
-			if(get()==val){
-				reset();
-				return true;}}
-		reset();
+		for(LinkedList *maillon = head; maillon; maillon = maillon->next){
+			if(maillon->data==val) return true;}
+		return false;}
+	
+	bool contains(const Type &val, bool (*callback)(const Type&,const Type&))const{
+		for(LinkedList *maillon = head; maillon; maillon = maillon->next){
+			if(callback(maillon->data,val)) return true;}
+		return false;}
+	
+	bool contains(const Type &val, int (*callback)(const Type&,const Type&))const{
+		for(LinkedList *maillon = head; maillon; maillon = maillon->next){
+			if(callback(maillon->data,val)==0) return true;}
 		return false;}
 	
 	bool keyexists(const char *key)const{
 		if(key==NULL) return false;
-		LinkedList *maillon = liste;
+		LinkedList *maillon = head;
 		while(maillon){
 			if(maillon->key && !strcmp(maillon->key,key)) return true;
 			maillon = maillon->next;}
 		return false;}
-		
+	
 	//Fonctions foreach
 	int foreach()const{
-		if(iterator) iterator = iterator->next;
-		else iterator = liste;
-		if(iterator) index++;
-		else index = 0;
-		return index;}
+		if(iterator->ptr) iterator->ptr = iterator->ptr->next;
+		else iterator->ptr = head;
+		if(iterator->ptr) iterator->index++;
+		else if(iterator->next){
+			reset();
+			return 0;}
+		else iterator->index = 0;
+		return iterator->index;}
 	
 	Type& get(){
-		if(iterator==NULL) throw runtime_error("Error in called funtion 'Type& Liste::get()' : Trying to access element outside foreach() loop.");
-		return iterator->data;}
+		if(iterator->ptr==NULL) throw runtime_error("Error in called funtion 'Type& Liste::get()' : Trying to access element outside foreach() loop.");
+		return iterator->ptr->data;}
 	
 	const Type& get()const{
-		if(iterator==NULL) throw runtime_error("Error in called funtion 'const Type& Liste::get() const' : Trying to access element outside foreach() loop.");
-		return iterator->data;}
+		if(iterator->ptr==NULL) throw runtime_error("Error in called funtion 'const Type& Liste::get() const' : Trying to access element outside foreach() loop.");
+		return iterator->ptr->data;}
+	
+	void start()const{
+		Iterator *newit = new Iterator();
+		newit->next = iterator;
+		iterator = newit;}
 	
 	void reset()const{
-		iterator = NULL;
-		index = 0;}
+		if(iterator && !iterator->ptr && iterator->next){
+			Iterator *temp = iterator;
+			iterator = iterator->next;
+			delete temp;}
+		else{
+			iterator->ptr = NULL;
+			iterator->index = 0;}}
 };
 
 #endif

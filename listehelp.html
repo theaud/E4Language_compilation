@@ -4,7 +4,7 @@
 		font-size: 12px;
 		color: black;
 	}
-
+	
 	h1 {
 		height: 30px;
 		font-size: 21px;
@@ -31,7 +31,7 @@
 	}
 	
 	article {
-		width: 740px;
+		width: 750px;
 		vertical-align: top;
 		background-color: #fff;
 	}
@@ -68,7 +68,7 @@
 	}
 	
 	dl dd {
-		margin-left: 165px;
+		margin-left: 175px;
 		border-left: 1px solid silver;
 		background-color: #fff;
 		padding: 1px 3px;
@@ -199,6 +199,14 @@
 					<dd>Remove element with specified key</dd>
 				</dl>
 				<dl>
+					<dt><a href="#removeAll(element)"><b>removeAll(element)</b></a></dt>
+					<dd>Remove all occurrence of element</dd>
+				</dl>
+				<dl>
+					<dt><a href="#removeAll(element,function)"><b>removeAll(element,funct)</b></a></dt>
+					<dd>Remove all occurrence of element using a user-defined comparison function</dd>
+				</dl>
+				<dl>
 					<dt><a href="#clear()"><b>clear()</b></a></dt>
 					<dd>Clear content</dd>
 				</dl>
@@ -214,12 +222,24 @@
 					<dd>Remove duplicate values</dd>
 				</dl>
 				<dl>
+					<dt><a href="#unique(function)"><b>unique(function)</b></a></dt>
+					<dd>Remove duplicate values using a user-defined comparison function</dd>
+				</dl>
+				<dl>
 					<dt><a href="#sort()"><b>sort()</b></a></dt>
 					<dd>Sort elements in list</dd>
 				</dl>
 				<dl>
+					<dt><a href="#sort(function)"><b>sort(function)</b></a></dt>
+					<dd>Sort elements in list using a user-defined comparison function</dd>
+				</dl>
+				<dl>
 					<dt><a href="#rsort()"><b>rsort()</b></a></dt>
 					<dd>Sort elements in list in reverse order</dd>
+				</dl>
+				<dl>
+					<dt><a href="#rsort(function)"><b>sort(function)</b></a></dt>
+					<dd>Sort elements in list in reverse order using a user-defined comparison function</dd>
 				</dl>
 				<br>
 				
@@ -237,6 +257,10 @@
 					<dd>Test whether list contains element</dd>
 				</dl>
 				<dl>
+					<dt><a href="#contains(element,function)"><b>contains(element,funct)</b></a></dt>
+					<dd>Test whether list contains element using a user-defined comparison function</dd>
+				</dl>
+				<dl>
 					<dt><a href="#keyexists(key)"><b>keyexists(key)</b></a></dt>
 					<dd>Test whether list contains key</dd>
 				</dl>
@@ -250,6 +274,10 @@
 				<dl>
 					<dt><a href="#get()"><b>get()</b></a></dt>
 					<dd>Access element</dd>
+				</dl>
+				<dl>
+					<dt><a href="#start()"><b>start()</b></a></dt>
+					<dd>Initialize a new iterator</dd>
 				</dl>
 				<dl>
 					<dt><a href="#reset()"><b>reset()</b></a></dt>
@@ -322,8 +350,8 @@
 				<fieldset id="operator=">
 					<legend>Liste::operator=</legend>
 					<div class="prototype">
-						<pre><i>(copy)</i>			Liste& operator=(const Liste&lt;Type&gt; &amp;liste);</pre>
-						<pre><i>(initializer list)</i>	Liste& operator=(initializer_list&lt;Type&gt; args);</pre>
+						<pre><i>(copy)</i>			Liste&amp; operator=(const Liste&lt;Type&gt; &amp;liste);</pre>
+						<pre><i>(initializer list)</i>	Liste&amp; operator=(initializer_list&lt;Type&gt; args);</pre>
 					</div>
 					<br>
 					<div class="description">
@@ -393,8 +421,8 @@
 				<fieldset id="operator+=">
 					<legend>Liste::operator+=</legend>
 					<div class="prototype">
-						<pre>Liste& operator+=(const Liste&lt;Type&gt; &amp;liste);</pre>
-						<pre>Liste& operator+=(initializer_list&lt;Type&gt; args);</pre>
+						<pre>Liste&amp; operator+=(const Liste&lt;Type&gt; &amp;liste);</pre>
+						<pre>Liste&amp; operator+=(initializer_list&lt;Type&gt; args);</pre>
 					</div>
 					<br>
 					<div class="description">
@@ -522,8 +550,8 @@
 				<fieldset id="operator[]">
 					<legend>Liste::operator[]</legend>
 					<div class="prototype">
-						<pre>      Type& operator[](const char*);</pre>
-						<pre>const Type& operator[](const char*)const;</pre>
+						<pre>      Type&amp; operator[](const char*);</pre>
+						<pre>const Type&amp; operator[](const char*)const;</pre>
 					</div>
 					<br>
 					<div class="description">
@@ -892,6 +920,87 @@
 					</div>
 				</fieldset>
 				
+				<fieldset id="removeAll(element)">
+					<legend>Liste::removeAll(element)</legend>
+					<div class="prototype">
+						<pre>void removeAll(const Type &amp;val);</pre>
+					</div>
+					<br>
+					<div class="description">
+						Removes all occurrence of element in the list, effectively reducing the container size by the number of element.<br>
+						Notice that an element is removed from the list if it compares equal to val.
+						Therefore, operator== must be defined for the Type used in list to use this function.
+					</div>
+					<br>
+					<label>Example :</label>
+					<div class="code">
+						<pre>int main(){</pre>
+						<pre>	Liste&lt;int&gt; liste;</pre>
+						<pre>	liste.add(1);</pre>
+						<pre>	liste.add(2);</pre>
+						<pre>	liste.add(3);</pre>
+						<pre>	liste.add(2);</pre>
+						<pre>	cout << "The list contains: " << liste << endl;</pre>
+						<pre>	liste.removeAll(2);</pre>
+						<pre>	cout << "The list contains: " << liste << endl;</pre>
+						<pre>}</pre>
+					</div>
+					<br>
+					<label>Output :</label>
+					<div class="output">
+						<pre>The list contains: [1, 2, 3, 2]</pre>
+						<pre>The list contains: [1, 3]</pre>
+					</div>
+				</fieldset>
+				
+				<fieldset id="removeAll(element,function)">
+					<legend>Liste::removeAll(element,function)</legend>
+					<div class="prototype">
+						<pre>void removeAll(const Type &amp;val, bool (*callback)(const Type&amp;,const Type&amp;));</pre>
+						<pre>void removeAll(const Type &amp;val, int (*callback)(const Type&amp;,const Type&amp;));</pre>
+					</div>
+					<br>
+					<div class="description">
+						Removes all occurrence of element in the list, effectively reducing the container size by the number of element.<br>
+						Notice that an element is removed from the list if it compares equal to val using a user-defined comparison function such that :<br>
+						bool return type => (callback(liste.element,val)==true)<br>
+						int return type => (callback(liste.element,val)==0)
+					</div>
+					<br>
+					<label>Example :</label>
+					<div class="code">
+						<pre>// Comparison function</pre>
+						<pre>int strcmp(const string &amp;str1, const string &amp;str2){</pre>
+						<pre>	return str1.compare(str2);</pre>
+						<pre>}</pre>
+						<br>
+						<pre>// Overloading of operator==</pre>
+						<pre>bool operator==(const string &amp;str1, const string &amp;str2){</pre>
+						<pre>	return (str1.compare(str2)==0);</pre>
+						<pre>}</pre>
+						<br>
+						<pre>int main(){</pre>
+						<pre>	Liste&lt;string&gt; liste;</pre>
+						<pre>	liste.add("tata");</pre>
+						<pre>	liste.add("titi");</pre>
+						<pre>	liste.add("toto");</pre>
+						<pre>	liste.add("titi");</pre>
+						<pre>	cout << "The list contains: " << liste << endl;</pre>
+						<pre>	// The following lines are equivalent</pre>
+						<pre>	liste.removeAll("titi",strcmp);</pre>
+						<pre>	liste.removeAll("titi",operator==);</pre>
+						<pre>	liste.removeAll("titi");	// operator== is implicitly called here</pre>
+						<pre>	cout << "The list contains: " << liste << endl;</pre>
+						<pre>}</pre>
+					</div>
+					<br>
+					<label>Output :</label>
+					<div class="output">
+						<pre>The list contains: [tata, titi, toto, titi]</pre>
+						<pre>The list contains: [tata, toto]</pre>
+					</div>
+				</fieldset>
+				
 				<fieldset id="clear()">
 					<legend>Liste::clear()</legend>
 					<div class="prototype">
@@ -989,6 +1098,54 @@
 					</div>
 				</fieldset>
 				
+				<fieldset id="unique(function)">
+					<legend>Liste::unique(function)</legend>
+					<div class="prototype">
+						<pre>void unique(bool (*callback)(const Type&amp;,const Type&amp;));</pre>
+						<pre>void unique(int (*callback)(const Type&amp;,const Type&amp;));</pre>
+					</div>
+					<br>
+					<div class="description">
+						Removes all but the first element from every consecutive group of equal elements in the list.<br>
+						Notice that an element is removed from the list if it compares equal to other elements using a user-defined comparison function such that :<br>
+						bool return type => (callback(liste.element1,liste.element2)==true)<br>
+						int return type => (callback(liste.element1,liste.element2)==0)
+					</div>
+					<br>
+					<label>Example :</label>
+					<div class="code">
+						<pre>// Comparison function</pre>
+						<pre>int strcmp(const string &amp;str1, const string &amp;str2){</pre>
+						<pre>	return str1.compare(str2);</pre>
+						<pre>}</pre>
+						<br>
+						<pre>// Overloading of operator==</pre>
+						<pre>bool operator==(const string &amp;str1, const string &amp;str2){</pre>
+						<pre>	return (str1.compare(str2)==0);</pre>
+						<pre>}</pre>
+						<br>
+						<pre>int main(){</pre>
+						<pre>	Liste&lt;string&gt; liste;</pre>
+						<pre>	liste.add("titi");</pre>
+						<pre>	liste.add("tata");</pre>
+						<pre>	liste.add("tata");</pre>
+						<pre>	liste.add("toto");</pre>
+						<pre>	cout << "The list contains: " << liste << endl;</pre>
+						<pre>	// The following lines are equivalent</pre>
+						<pre>	liste.unique(strcmp);</pre>
+						<pre>	liste.unique(operator==);</pre>
+						<pre>	liste.unique();		// operator== is implicitly called here</pre>
+						<pre>	cout << "The list contains: " << liste << endl;</pre>
+						<pre>}</pre>
+					</div>
+					<br>
+					<label>Output :</label>
+					<div class="output">
+						<pre>The list contains: [titi, tata, tata, toto]</pre>
+						<pre>The list contains: [titi, tata, toto]</pre>
+					</div>
+				</fieldset>
+				
 				<fieldset id="sort()">
 					<legend>Liste::sort()</legend>
 					<div class="prototype">
@@ -1022,6 +1179,43 @@
 					</div>
 				</fieldset>
 				
+				<fieldset id="sort(function)">
+					<legend>Liste::sort(function)</legend>
+					<div class="prototype">
+						<pre>void sort(int (*callback)(const Type&amp;,const Type&amp;));</pre>
+					</div>
+					<br>
+					<div class="description">
+						Sorts the elements in the list using a user-defined comparison function.<br>
+						The sorting is performed by applying an algorithm that uses the specified function to compare elements.
+					</div>
+					<br>
+					<label>Example :</label>
+					<div class="code">
+						<pre>// Comparison function</pre>
+						<pre>int strcmp(const string &amp;str1, const string &amp;str2){</pre>
+						<pre>	return str1.compare(str2);</pre>
+						<pre>}</pre>
+						<br>
+						<pre>int main(){</pre>
+						<pre>	Liste&lt;string&gt; liste;</pre>
+						<pre>	liste.add("titi");</pre>
+						<pre>	liste.add("totos");</pre>
+						<pre>	liste.add("tata");</pre>
+						<pre>	liste.add("toto");</pre>
+						<pre>	cout << "The list contains: " << liste << endl;</pre>
+						<pre>	liste.sort(strcmp);</pre>
+						<pre>	cout << "The list contains: " << liste << endl;</pre>
+						<pre>}</pre>
+					</div>
+					<br>
+					<label>Output :</label>
+					<div class="output">
+						<pre>The list contains: [titi, totos, tata, toto]</pre>
+						<pre>The list contains: [tata, titi, toto, totos]</pre>
+					</div>
+				</fieldset>
+				
 				<fieldset id="rsort()">
 					<legend>Liste::rsort()</legend>
 					<div class="prototype">
@@ -1052,6 +1246,43 @@
 					<div class="output">
 						<pre>The list contains: [1, 42, -1, 7]</pre>
 						<pre>The list contains: [42, 7, 1, -1]</pre>
+					</div>
+				</fieldset>
+				
+				<fieldset id="rsort(function)">
+					<legend>Liste::rsort(function)</legend>
+					<div class="prototype">
+						<pre>void rsort(int (*callback)(const Type&amp;,const Type&amp;));</pre>
+					</div>
+					<br>
+					<div class="description">
+						Sorts the elements in the list in reverse order using a user-defined comparison function.<br>
+						The sorting is performed by applying an algorithm that uses the specified function to compare elements.
+					</div>
+					<br>
+					<label>Example :</label>
+					<div class="code">
+						<pre>// Comparison function</pre>
+						<pre>int strcmp(const string &amp;str1, const string &amp;str2){</pre>
+						<pre>	return str1.compare(str2);</pre>
+						<pre>}</pre>
+						<br>
+						<pre>int main(){</pre>
+						<pre>	Liste&lt;string&gt; liste;</pre>
+						<pre>	liste.add("titi");</pre>
+						<pre>	liste.add("totos");</pre>
+						<pre>	liste.add("tata");</pre>
+						<pre>	liste.add("toto");</pre>
+						<pre>	cout << "The list contains: " << liste << endl;</pre>
+						<pre>	liste.sort(strcmp);</pre>
+						<pre>	cout << "The list contains: " << liste << endl;</pre>
+						<pre>}</pre>
+					</div>
+					<br>
+					<label>Output :</label>
+					<div class="output">
+						<pre>The list contains: [titi, totos, tata, toto]</pre>
+						<pre>The list contains: [totos, toto, titi, tata]</pre>
 					</div>
 				</fieldset>
 				
@@ -1119,7 +1350,7 @@
 					<br>
 					<div class="description">
 						Returns true if the list contains the specified value.<br>
-						More formally, returns true if and only if the list contains at least one element such that (liste.element==element).
+						More formally, returns true if and only if the list contains at least one element such that (liste.element==val).
 						Therefore, operator== must be defined for the Type used in list to use this function.
 					</div>
 					<br>
@@ -1141,6 +1372,54 @@
 					<div class="output">
 						<pre>The list doesn't contain 0.</pre>
 						<pre>The list contains 2.</pre>
+					</div>
+				</fieldset>
+				
+				<fieldset id="contains(element,function)">
+					<legend>Liste::contains(element,function)</legend>
+					<div class="prototype">
+						<pre>bool contains(const Type &amp;val, bool (*callback)(const Type&amp;,const Type&amp;)) const;</pre>
+						<pre>bool contains(const Type &amp;val, int (*callback)(const Type&amp;,const Type&amp;)) const;</pre>
+					</div>
+					<br>
+					<div class="description">
+						Returns true if the list contains the specified value using a user-defined comparison function.<br>
+						More formally, returns true if and only if the list contains at least one element such that :<br>
+						bool return type => (callback(liste.element,val)==true)<br>
+						int return type => (callback(liste.element,val)==0)
+					</div>
+					<br>
+					<label>Example :</label>
+					<div class="code">
+						<pre>// Comparison function</pre>
+						<pre>int strcmp(const string &amp;str1, const string &amp;str2){</pre>
+						<pre>	return str1.compare(str2);</pre>
+						<pre>}</pre>
+						<br>
+						<pre>// Overloading of operator==</pre>
+						<pre>bool operator==(const string &amp;str1, const string &amp;str2){</pre>
+						<pre>	return (str1.compare(str2)==0);</pre>
+						<pre>}</pre>
+						<br>
+						<pre>int main(){</pre>
+						<pre>	Liste&lt;string&gt; liste;</pre>
+						<pre>	liste.add("tata");</pre>
+						<pre>	liste.add("titi");</pre>
+						<pre>	liste.add("toto");</pre>
+						<pre>	if(liste.contains("tete",strcmp)) cout << "The list contains tete." << endl;</pre>
+						<pre>	else cout << "The list doesn't contain tutu." << endl;</pre>
+						<pre>	if(liste.contains("titi",operator==)) cout << "The list contains titi." << endl;</pre>
+						<pre>	else cout << "The list doesn't contain titi." << endl;</pre>
+						<pre>	if(liste.contains("tutu")) cout << "The list contains tutu." << endl;</pre>
+						<pre>	else cout << "The list doesn't contain tutu." << endl;</pre>
+						<pre>}</pre>
+					</div>
+					<br>
+					<label>Output :</label>
+					<div class="output">
+						<pre>The list doesn't contain tete.</pre>
+						<pre>The list contains titi.</pre>
+						<pre>The list doesn't contain tutu.</pre>
 					</div>
 				</fieldset>
 				
@@ -1184,7 +1463,7 @@
 					<div class="description">
 						Increments iterator of the list and returns (index + 1 % listsize).<br>
 						If used inside a while(), the function iterates all elements of the list and
-						stops at the end of the list, resetting iterator to the beginning.
+						stops at the end of the list, resetting iterator to the beginning by calling implicitely <a href="#reset()">reset()</a> function.
 						Thus, elements can be accessed thanks to <a href="#get()">get()</a> function.
 					</div>
 					<br>
@@ -1241,6 +1520,46 @@
 					</div>
 				</fieldset>
 				
+				<fieldset id="start()">
+					<legend>Liste::start()</legend>
+					<div class="prototype">
+						<pre>void start() const;</pre>
+					</div>
+					<br>
+					<div class="description">
+						Initialize a new iterator in for the current instance.<br>
+						An iterator is automatically initialized when the list is created, so this function doesn't need be called before a
+						<a href="#foreach()">foreach()</a> statement except for the following cases :<br>
+						- if a function with a list reference as argument uses a foreach() loop on this instance and is called inside another foreach() loop on the same instance.<br>
+						- if a function with a list reference as argument uses a foreach() loop on this instance in which the function is called recursively.<br>
+						Then, the created iterator is destroyed when <a href="#foreach()">foreach()</a> reaches the end of list or if <a href="#reset()">reset()</a> is called,
+						resetting the previous state of iterator for the parent <a href="#foreach()">foreach()</a> loop.
+					</div>
+					<br>
+					<label>Example :</label>
+					<div class="code">
+						<pre>// The following functions illustrate the situation above and are not optimized</pre>
+						<br>
+						<pre>/* Here, we don't need to call start() because liste is a copy, but this is not efficient */</pre>
+						<pre>int recursivemax(Liste&lt;int&gt; liste, int n){</pre>
+						<pre>	while(liste.foreach()){</pre>
+						<pre>		if(liste.get()>n) return recursivemax(liste,n+1);</pre>
+						<pre>	}</pre>
+						<pre>	return n;</pre>
+						<pre>}</pre>
+						<br>
+						<pre>/* Here, we must call start() as liste is a reference and the function is called recursively inside</pre>
+						<pre>foreach() loop */</pre>
+						<pre>int recursivemax(const Liste&lt;int&gt; &amp;liste, int n){</pre>
+						<pre>	liste.start();</pre>
+						<pre>	while(liste.foreach()){</pre>
+						<pre>		if(liste.get()>n) return recursivemax(liste,n+1);</pre>
+						<pre>	}</pre>
+						<pre>	return n;</pre>
+						<pre>}</pre>
+					</div>
+				</fieldset>
+				
 				<fieldset id="reset()">
 					<legend>Liste::reset()</legend>
 					<div class="prototype">
@@ -1256,7 +1575,7 @@
 					<br>
 					<label>Example :</label>
 					<div class="code">
-						<pre>bool greaterthan(const Liste<int> &liste, int n){</pre>
+						<pre>bool greaterthan(const Liste&lt;int&gt; &amp;liste, int n){</pre>
 						<pre>	while(liste.foreach()){</pre>
 						<pre>		if(liste.get()>n){</pre>
 						<pre>			// Here reset() must be called before return statement</pre>

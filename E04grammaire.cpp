@@ -8,14 +8,21 @@ char* lirestr(FILE *file){
 	if(char *index = strchr(temp,'\n')) *index = 0;
 	char *str = (char*)malloc(sizeof(char)*(strlen(temp)+1));
 	strcpy(str,temp);
-	return str;
-}
+	return str;}
+
+bool operator==(string str1, string str2){
+	return !strcmp(str1.c_str(),str2.c_str());}
+
+template <typename Type>
+int indexOf(const Liste<Type> &liste, string str){
+	for(int i=0; i<liste.size(); i++){
+		if(!strcmp(liste.at(i).getnom().c_str(),str.c_str())) return i;}
+	return -1;}
 
 ostream& operator<<(ostream &os, const Grammaire &grammaire){
 	while(grammaire.regles.foreach()) os << grammaire.regles.get() << endl;
 	return os;
 }
-
 
 Grammaire Grammaire::getgrammaire(){
 	Grammaire grammaire;
@@ -58,26 +65,12 @@ void Grammaire::derecursiver(){
 			valeurprime.add("#");
 			Regle regleprime(nom+"'",valeurprime);
 			regles.insert(i+1,regleprime);
-			i++;}}
-}
-
-template <typename Type>
-int indexOf(const Liste<Type> &liste, string str){
-	for(int i=0; i<liste.size(); i++){
-		if(!strcmp(liste.at(i).getnom().c_str(),str.c_str())) return i;}
-	return -1;}
-
-
-template <typename Type>
-bool contains(const Liste<Type> &liste, string str){
-	for(int i=0; i<liste.size(); i++){
-		if(!strcmp(liste.at(i).c_str(),str.c_str())) return true;}
-	return false;}
-
+			i++;}}}
 
 Liste<string> Grammaire::getpremier(const Regle &regle){
 	Liste<string> premier;
 	const Liste<string> &valeur = regle.getvaleur();
+	valeur.start();
 	while(valeur.foreach()){
 		string str;
 		if(valeur.get().size()>1 && valeur.get().at(1)=='\'') str = valeur.get().substr(0,2);
@@ -87,24 +80,18 @@ Liste<string> Grammaire::getpremier(const Regle &regle){
 		else premier.add(str);}
 	return premier;}
 
-template <typename Type>
-void unique(Liste<Type> &liste){
-	for(int i=0; i<liste.size(); i++){
-		for(int j=i+1; j<liste.size(); j++){
-			if(!strcmp(liste.at(i).c_str(),liste.at(j).c_str())){
-				liste.remove(j);
-				j--;}}}}
-
 Liste<string> Grammaire::getsuivant(const Regle &regle){
 	Liste<string> suivant;
 	suivant.add("$");
-	for(int i=0; i<regles.size(); i++){
-		Liste<string> valeur = regles.at(i).getvaleur();
-		for(int j=0; j<valeur.size(); j++){
-			if(char *index = strstr(valeur.at(j).c_str(),regle.getnom().c_str())){
+	regles.start();
+	while(regles.foreach()){
+		const Liste<string> &valeur = regles.get().getvaleur();
+		valeur.start();
+		while(valeur.foreach()){
+			if(char *index = strstr(valeur.get().c_str(),regle.getnom().c_str())){
 				index += regle.getnom().size();
-				if(*index==0 && strcmp(regle.getnom().c_str(),regles.at(i).getnom().c_str())){
-					suivant += getsuivant(regles.at(i));}
+				if(*index==0 && strcmp(regle.getnom().c_str(),regles.get().getnom().c_str())){
+					suivant += getsuivant(regles.get());}
 				if(*index!=0 && *index!='\''){
 					string str;
 					str += index[0];
@@ -112,15 +99,11 @@ Liste<string> Grammaire::getsuivant(const Regle &regle){
 					int n = indexOf(regles,str);
 					if(n>=0){
 						suivant += getpremier(regles.at(n));
-						bool test=false;
-						for(int k=0; k<suivant.size(); k++){
-							if(!strcmp(suivant.at(k).c_str(),"#")){
-								suivant.remove(k);
-								k--;
-								test = true;}}
-						if(test) suivant += getsuivant(regles.at(n));}
+						if(suivant.contains("#")){
+							suivant.removeAll("#");
+							suivant += getsuivant(regles.at(n));}}
 					else if(str.size()>0) suivant.add(str);}}}}
-	unique(suivant);
+	suivant.unique();
 	return suivant;}
 
 Liste<string> Grammaire::getterminaux(){
@@ -135,16 +118,12 @@ Liste<string> Grammaire::getterminaux(){
 					str += valeur.get().at(i+1);
 					i++;}
 				if(indexOf(regles,str)<0) terminaux.add(str);}}}
-	unique(terminaux);
-	return terminaux;
-}
+	terminaux.unique();
+	return terminaux;}
 
-void Grammaire::print_table_analyseur(){
+void Grammaire::printanalysetab(){
 	Liste<string> terminaux = getterminaux();
-	for(int i=0; i<terminaux.size(); i++){
-		if(!strcmp(terminaux.at(i).c_str(),"#")){
-			terminaux.remove(i);
-			i--;}}
+	terminaux.removeAll("#");
 	terminaux.add("$");
 	cout << "\t" << terminaux << endl;
 	while(regles.foreach()){
@@ -152,8 +131,7 @@ void Grammaire::print_table_analyseur(){
 		Liste<string> premier = getpremier(regles.get());
 		Liste<string> suivant = getsuivant(regles.get());
 		while(terminaux.foreach()){
-			if(contains(premier,terminaux.get())) cout << "pr ";
-			else if(contains(suivant,terminaux.get())) cout << "su ";
+			if(premier.contains(terminaux.get())) cout << "pr ";
+			else if(suivant.contains(terminaux.get())) cout << "su ";
 			else cout << "   ";}
-		cout << endl;}
-}
+		cout << endl;}}

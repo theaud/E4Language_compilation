@@ -17,7 +17,7 @@ public :
 	Liste<string> getpremier(const Regle &regle);
 	Liste<string> getsuivant(const Regle &regle);
 	Liste<string> getterminaux();
-    void print_table_analyseur();
+    void printanalysetab();
 };
 
 #endif
