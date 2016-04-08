@@ -92,7 +92,7 @@
 			
 			<section id="introduction">
 				<div class="prototype">
-					<pre>template &lt; typename Type &gt; class Liste;</pre>
+					<pre>template &lt;typename Type&gt; class Liste;</pre>
 				</div>
 				<br>
 				<div class="description">
@@ -259,6 +259,14 @@
 				<dl>
 					<dt><a href="#contains(element,function)"><b>contains(element,funct)</b></a></dt>
 					<dd>Test whether list contains element using a user-defined comparison function</dd>
+				</dl>
+				<dl>
+					<dt><a href="#indexOf(element)"><b>indexOf(element)</b></a></dt>
+					<dd>Get index of element</dd>
+				</dl>
+				<dl>
+					<dt><a href="#indexOf(element,function)"><b>indexOf(element,funct)</b></a></dt>
+					<dd>Get index of element using a user-defined comparison function</dd>
 				</dl>
 				<dl>
 					<dt><a href="#keyexists(key)"><b>keyexists(key)</b></a></dt>
@@ -923,7 +931,8 @@
 				<fieldset id="removeAll(element)">
 					<legend>Liste::removeAll(element)</legend>
 					<div class="prototype">
-						<pre>void removeAll(const Type &amp;val);</pre>
+						<pre>template &lt;typename Value&gt;</pre>
+						<pre>void removeAll(const Value &amp;val);</pre>
 					</div>
 					<br>
 					<div class="description">
@@ -956,8 +965,9 @@
 				<fieldset id="removeAll(element,function)">
 					<legend>Liste::removeAll(element,function)</legend>
 					<div class="prototype">
-						<pre>void removeAll(const Type &amp;val, bool (*callback)(const Type&amp;,const Type&amp;));</pre>
-						<pre>void removeAll(const Type &amp;val, int (*callback)(const Type&amp;,const Type&amp;));</pre>
+						<pre>template &lt;typename Value&gt;</pre>
+						<pre>void removeAll(const Value &amp;val, bool (*callback)(const Type&amp;,const Value&amp;));</pre>
+						<pre>void removeAll(const Value &amp;val, int (*callback)(const Type&amp;,const Value&amp;));</pre>
 					</div>
 					<br>
 					<div class="description">
@@ -969,16 +979,18 @@
 					<br>
 					<label>Example :</label>
 					<div class="code">
-						<pre>// Comparison function</pre>
-						<pre>int strcmp(const string &amp;str1, const string &amp;str2){</pre>
+						<pre>// Comparison functions</pre>
+						<pre>template &lt;typename Type&gt;</pre>
+						<pre>int strcmp(const string &amp;str1, const Type &amp;str2){</pre>
 						<pre>	return str1.compare(str2);</pre>
 						<pre>}</pre>
 						<br>
-						<pre>// Overloading of operator==</pre>
-						<pre>bool operator==(const string &amp;str1, const string &amp;str2){</pre>
-						<pre>	return (str1.compare(str2)==0);</pre>
+						<pre>template &lt;typename Type&gt;</pre>
+						<pre>bool strequals(const string &amp;str1, const Type &amp;str2){</pre>
+						<pre>	return (str1==str2);</pre>
 						<pre>}</pre>
 						<br>
+						<pre>// Notice that we use template functions because val can be a string or a const char* as below</pre>
 						<pre>int main(){</pre>
 						<pre>	Liste&lt;string&gt; liste;</pre>
 						<pre>	liste.add("tata");</pre>
@@ -1114,14 +1126,13 @@
 					<br>
 					<label>Example :</label>
 					<div class="code">
-						<pre>// Comparison function</pre>
+						<pre>// Comparison functions</pre>
 						<pre>int strcmp(const string &amp;str1, const string &amp;str2){</pre>
 						<pre>	return str1.compare(str2);</pre>
 						<pre>}</pre>
 						<br>
-						<pre>// Overloading of operator==</pre>
-						<pre>bool operator==(const string &amp;str1, const string &amp;str2){</pre>
-						<pre>	return (str1.compare(str2)==0);</pre>
+						<pre>bool strequals(const string &amp;str1, const string &amp;str2){</pre>
+						<pre>	return (str1==str2);</pre>
 						<pre>}</pre>
 						<br>
 						<pre>int main(){</pre>
@@ -1133,7 +1144,7 @@
 						<pre>	cout << "The list contains: " << liste << endl;</pre>
 						<pre>	// The following lines are equivalent</pre>
 						<pre>	liste.unique(strcmp);</pre>
-						<pre>	liste.unique(operator==);</pre>
+						<pre>	liste.unique(strequals);</pre>
 						<pre>	liste.unique();		// operator== is implicitly called here</pre>
 						<pre>	cout << "The list contains: " << liste << endl;</pre>
 						<pre>}</pre>
@@ -1345,7 +1356,8 @@
 				<fieldset id="contains(element)">
 					<legend>Liste::contains(element)</legend>
 					<div class="prototype">
-						<pre>bool contains(const Type &amp;val) const;</pre>
+						<pre>template &lt;typename Value&gt;</pre>
+						<pre>bool contains(const Value &amp;val) const;</pre>
 					</div>
 					<br>
 					<div class="description">
@@ -1378,8 +1390,9 @@
 				<fieldset id="contains(element,function)">
 					<legend>Liste::contains(element,function)</legend>
 					<div class="prototype">
-						<pre>bool contains(const Type &amp;val, bool (*callback)(const Type&amp;,const Type&amp;)) const;</pre>
-						<pre>bool contains(const Type &amp;val, int (*callback)(const Type&amp;,const Type&amp;)) const;</pre>
+						<pre>template &lt;typename Value&gt;</pre>
+						<pre>bool contains(const Value &amp;val, bool (*callback)(const Type&amp;,const Value&amp;)) const;</pre>
+						<pre>bool contains(const Value &amp;val, int (*callback)(const Type&amp;,const Value&amp;)) const;</pre>
 					</div>
 					<br>
 					<div class="description">
@@ -1391,16 +1404,18 @@
 					<br>
 					<label>Example :</label>
 					<div class="code">
-						<pre>// Comparison function</pre>
-						<pre>int strcmp(const string &amp;str1, const string &amp;str2){</pre>
+						<pre>// Comparison functions</pre>
+						<pre>template &lt;typename Type&gt;</pre>
+						<pre>int strcmp(const string &amp;str1, const Type &amp;str2){</pre>
 						<pre>	return str1.compare(str2);</pre>
 						<pre>}</pre>
 						<br>
-						<pre>// Overloading of operator==</pre>
-						<pre>bool operator==(const string &amp;str1, const string &amp;str2){</pre>
-						<pre>	return (str1.compare(str2)==0);</pre>
+						<pre>template &lt;typename Type&gt;</pre>
+						<pre>bool strequals(const string &amp;str1, const Type &amp;str2){</pre>
+						<pre>	return (str1==str2);</pre>
 						<pre>}</pre>
 						<br>
+						<pre>// Notice that we use template functions because val can be a string or a const char* as below</pre>
 						<pre>int main(){</pre>
 						<pre>	Liste&lt;string&gt; liste;</pre>
 						<pre>	liste.add("tata");</pre>
@@ -1408,7 +1423,7 @@
 						<pre>	liste.add("toto");</pre>
 						<pre>	if(liste.contains("tete",strcmp)) cout << "The list contains tete." << endl;</pre>
 						<pre>	else cout << "The list doesn't contain tutu." << endl;</pre>
-						<pre>	if(liste.contains("titi",operator==)) cout << "The list contains titi." << endl;</pre>
+						<pre>	if(liste.contains("titi",strequals)) cout << "The list contains titi." << endl;</pre>
 						<pre>	else cout << "The list doesn't contain titi." << endl;</pre>
 						<pre>	if(liste.contains("tutu")) cout << "The list contains tutu." << endl;</pre>
 						<pre>	else cout << "The list doesn't contain tutu." << endl;</pre>
@@ -1420,6 +1435,93 @@
 						<pre>The list doesn't contain tete.</pre>
 						<pre>The list contains titi.</pre>
 						<pre>The list doesn't contain tutu.</pre>
+					</div>
+				</fieldset>
+				
+				<fieldset id="indexOf(element)">
+					<legend>Liste::indexOf(element)</legend>
+					<div class="prototype">
+						<pre>template &lt;typename Value&gt;</pre>
+						<pre>bool indexOf(const Value &amp;val) const;</pre>
+					</div>
+					<br>
+					<div class="description">
+						Returns index of the first occurrence of the specified value inside the list.<br>
+						More formally, returns index if and only if the list contains at least one element such that (liste.element==val) else returns -1.
+						Therefore, operator== must be defined for the Type used in list to use this function.
+					</div>
+					<br>
+					<label>Example :</label>
+					<div class="code">
+						<pre>int main(){</pre>
+						<pre>	Liste&lt;int&gt; liste;</pre>
+						<pre>	liste.add(1);</pre>
+						<pre>	liste.add(2);</pre>
+						<pre>	liste.add(3);</pre>
+						<pre>	cout << "The list contains: " << liste << endl;</pre>
+						<pre>	cout << "Index of element 0 = " << liste.indexOf(0) << endl;</pre>
+						<pre>	cout << "Index of element 2 = " << liste.indexOf(2) << endl;</pre>
+						<pre>}</pre>
+					</div>
+					<br>
+					<label>Output :</label>
+					<div class="output">
+						<pre>The list contains: [1, 2, 3]</pre>
+						<pre>Index of element 0 = -1</pre>
+						<pre>Index of element 2 = 1</pre>
+					</div>
+				</fieldset>
+				
+				<fieldset id="indexOf(element,function)">
+					<legend>Liste::indexOf(element,function)</legend>
+					<div class="prototype">
+						<pre>template &lt;typename Value&gt;</pre>
+						<pre>bool indexOf(const Value &amp;val, bool (*callback)(const Type&amp;,const Value&amp;)) const;</pre>
+						<pre>bool indexOf(const Value &amp;val, int (*callback)(const Type&amp;,const Value&amp;)) const;</pre>
+					</div>
+					<br>
+					<div class="description">
+						Returns index of the first occurrence of the specified value inside the list using a user-defined comparison function.<br>
+						More formally, returns index if and only if the list contains at least one element such that :<br>
+						bool return type => (callback(liste.element,val)==true)<br>
+						int return type => (callback(liste.element,val)==0)<br>
+						Else returns -1.
+					</div>
+					<br>
+					<label>Example :</label>
+					<div class="code">
+						<pre>// Comparison functions</pre>
+						<pre>template &lt;typename Type&gt;</pre>
+						<pre>int strcmp(const string &amp;str1, const Type &amp;str2){</pre>
+						<pre>	return str1.compare(str2);</pre>
+						<pre>}</pre>
+						<br>
+						<pre>template &lt;typename Type&gt;</pre>
+						<pre>bool strequals(const string &amp;str1, const Type &amp;str2){</pre>
+						<pre>	return (str1==str2);</pre>
+						<pre>}</pre>
+						<br>
+						<pre>// Notice that we use template functions because val can be a string or a const char* as below</pre>
+						<pre>int main(){</pre>
+						<pre>	Liste&lt;string&gt; liste;</pre>
+						<pre>	liste.add("tata");</pre>
+						<pre>	liste.add("titi");</pre>
+						<pre>	liste.add("toto");</pre>
+						<pre>	cout << "The list contains: " << liste << endl;</pre>
+						<pre>	// The following lines are equivalent</pre>
+						<pre>	cout << "Index of element tata = " << liste.indexOf("tata",strcmp) << endl;</pre>
+						<pre>	cout << "Index of element tete = " << liste.indexOf("tete",strequals) << endl;</pre>
+						<pre>	cout << "Index of element titi = " << liste.indexOf("titi") << endl;</pre>
+						<pre>					// operator== is implicitly called here</pre>
+						<pre>}</pre>
+					</div>
+					<br>
+					<label>Output :</label>
+					<div class="output">
+						<pre>The list contains: [tata, titi, toto]</pre>
+						<pre>Index of element tata = 0</pre>
+						<pre>Index of element tete = -1</pre>
+						<pre>Index of element titi = 1</pre>
 					</div>
 				</fieldset>
 				

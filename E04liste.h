@@ -318,7 +318,8 @@ Try to use a non const list to create a new element with the specified key.");}
 			supprimer(maillon->next);}
 		return val;}
 	
-	void removeAll(const Type &val){
+	template <typename Value>
+	void removeAll(const Value &val){
 		while(head && head->data==val) supprimer(head);
 		if(head && head->next){
 			LinkedList *maillon = head;
@@ -326,7 +327,8 @@ Try to use a non const list to create a new element with the specified key.");}
 				if(maillon->next->data==val) supprimer(maillon->next);
 				else maillon = maillon->next;}}}
 	
-	void removeAll(const Type &val, bool (*callback)(const Type&,const Type&)){
+	template <typename Value>
+	void removeAll(const Value &val, bool (*callback)(const Type&,const Value&)){
 		while(head && head->data==val) supprimer(head);
 		if(head && callback(head->data,val)){
 			LinkedList *maillon = head;
@@ -334,7 +336,8 @@ Try to use a non const list to create a new element with the specified key.");}
 				if(callback(maillon->next->data,val)) supprimer(maillon->next);
 				else maillon = maillon->next;}}}
 	
-	void removeAll(const Type &val, int (*callback)(const Type&,const Type&)){
+	template <typename Value>
+	void removeAll(const Value &val, int (*callback)(const Type&,const Value&)){
 		while(head && head->data==val) supprimer(head);
 		if(head && callback(head->data,val)==0){
 			LinkedList *maillon = head;
@@ -399,20 +402,47 @@ Try to use a non const list to create a new element with the specified key.");}
 	int size()const{
 		return listsize;}
 	
-	bool contains(const Type &val)const{
+	template <typename Value>
+	bool contains(const Value &val)const{
 		for(LinkedList *maillon = head; maillon; maillon = maillon->next){
 			if(maillon->data==val) return true;}
 		return false;}
 	
-	bool contains(const Type &val, bool (*callback)(const Type&,const Type&))const{
+	template <typename Value>
+	bool contains(const Value &val, bool (*callback)(const Type&,const Value&))const{
 		for(LinkedList *maillon = head; maillon; maillon = maillon->next){
 			if(callback(maillon->data,val)) return true;}
 		return false;}
 	
-	bool contains(const Type &val, int (*callback)(const Type&,const Type&))const{
+	template <typename Value>
+	bool contains(const Value &val, int (*callback)(const Type&,const Value&))const{
 		for(LinkedList *maillon = head; maillon; maillon = maillon->next){
 			if(callback(maillon->data,val)==0) return true;}
 		return false;}
+	
+	template <typename Value>
+	int indexOf(const Value &val)const{
+		LinkedList *maillon = head;
+		for(int i=0; i<listsize; i++){
+			if(maillon->data==val) return i;
+			maillon = maillon->next;}
+		return -1;}
+	
+	template <typename Value>
+	int indexOf(const Value &val, bool (*callback)(const Type&,const Value&))const{
+		LinkedList *maillon = head;
+		for(int i=0; i<listsize; i++){
+			if(callback(maillon->data,val)) return i;
+			maillon = maillon->next;}
+		return -1;}
+	
+	template <typename Value>
+	int indexOf(const Value &val, int (*callback)(const Type&,const Value&))const{
+		LinkedList *maillon = head;
+		for(int i=0; i<listsize; i++){
+			if(callback(maillon->data,val)==0) return i;
+			maillon = maillon->next;}
+		return -1;}
 	
 	bool keyexists(const char *key)const{
 		if(key==NULL) return false;

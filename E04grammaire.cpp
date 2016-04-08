@@ -10,14 +10,8 @@ char* lirestr(FILE *file){
 	strcpy(str,temp);
 	return str;}
 
-bool operator==(string str1, string str2){
-	return !strcmp(str1.c_str(),str2.c_str());}
-
-template <typename Type>
-int indexOf(const Liste<Type> &liste, string str){
-	for(int i=0; i<liste.size(); i++){
-		if(!strcmp(liste.at(i).getnom().c_str(),str.c_str())) return i;}
-	return -1;}
+int comparernom(const Regle &regle, const string &nom){
+	return regle.getnom().compare(nom);}
 
 ostream& operator<<(ostream &os, const Grammaire &grammaire){
 	while(grammaire.regles.foreach()) os << grammaire.regles.get() << endl;
@@ -75,7 +69,7 @@ Liste<string> Grammaire::getpremier(const Regle &regle){
 		string str;
 		if(valeur.get().size()>1 && valeur.get().at(1)=='\'') str = valeur.get().substr(0,2);
 		else str = valeur.get().at(0);
-		int n = indexOf(regles,str);
+		int n = regles.indexOf(str,comparernom);
 		if(n>=0) premier += getpremier(regles.at(n));
 		else premier.add(str);}
 	return premier;}
@@ -96,7 +90,7 @@ Liste<string> Grammaire::getsuivant(const Regle &regle){
 					string str;
 					str += index[0];
 					if(index[1]=='\'') str += index[1];
-					int n = indexOf(regles,str);
+					int n = regles.indexOf(str,comparernom);
 					if(n>=0){
 						suivant += getpremier(regles.at(n));
 						if(suivant.contains("#")){
@@ -117,7 +111,7 @@ Liste<string> Grammaire::getterminaux(){
 				if(i<valeur.get().size()-1 && valeur.get().at(i+1)=='\''){
 					str += valeur.get().at(i+1);
 					i++;}
-				if(indexOf(regles,str)<0) terminaux.add(str);}}}
+				if(!regles.contains(str,comparernom)) terminaux.add(str);}}}
 	terminaux.unique();
 	return terminaux;}
 
