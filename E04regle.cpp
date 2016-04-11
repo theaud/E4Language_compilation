@@ -9,35 +9,28 @@ using namespace std;
 Regle::Regle(char *str){
 	char *substr = strtok(str,"=|");
 	nom = substr;
-	while(substr = strtok(NULL,"=|")) valeur.add(substr);
-}
+	while(substr = strtok(NULL,"=|")) valeur.add(substr);}
 
 Regle::Regle(const string &nom, const Liste<string> &valeur){
 	this->nom = nom;
-	this->valeur = valeur;
-}
+	this->valeur = valeur;}
 
 ostream& operator<<(ostream &os, const Regle &regle){
 	os << "Regle [nom = " << regle.nom << ", valeur = " << regle.valeur << "]";
-	return os;
-}
+	return os;}
 
 const string& Regle::getnom()const{
-	return nom;
-}
+	return nom;}
 
 Liste<string>& Regle::getvaleur(){
-	return valeur;
-}
+	return valeur;}
 
 const Liste<string>& Regle::getvaleur()const{
-	return valeur;
-}
+	return valeur;}
 
 bool Regle::isrecursive()const{
 	while(valeur.foreach()){
-		if(strstr(valeur.get().c_str(),nom.c_str())){
+		if(!strncmp(valeur.get().c_str(),nom.c_str(),nom.size())){
 			valeur.reset();
 			return true;}}
-	return false;
-}
+	return false;}

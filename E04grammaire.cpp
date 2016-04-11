@@ -14,52 +14,42 @@ int comparernom(const Regle &regle, const string &nom){
 	return regle.getnom().compare(nom);}
 
 ostream& operator<<(ostream &os, const Grammaire &grammaire){
-	while(grammaire.regles.foreach()) os << grammaire.regles.get() << endl;
-	return os;
-}
+	os << grammaire.regles << endl;
+	return os;}
 
 Grammaire Grammaire::getgrammaire(){
 	Grammaire grammaire;
 	char *str;
 	FILE *file = fopen("E04grammaire.txt","r");
-	if(fgetc(file)!=EOF)
-    {
+	if(fgetc(file)!=EOF){
 		fseek(file,-1,SEEK_CUR);
-		while(fgetc(file)!=EOF)
-        {
+		while(fgetc(file)!=EOF){
 			fseek(file,-1,SEEK_CUR);
 			str = lirestr(file);
 			grammaire.regles.add(str);
-			free(str);
-        }
-		fclose(file);
-    }
+			free(str);}
+		fclose(file);}
 	else cout << "* Erreur : le fichier E04grammaire.txt est absent ou vide ! *" << endl;
-	return grammaire;
-}
+	return grammaire;}
 
 const Liste<Regle>& Grammaire::getregles()const{
-	return regles;
-}
+	return regles;}
 
 void Grammaire::derecursiver(){
-	for(int i=0; i<regles.size(); i++){
-		if(regles.at(i).isrecursive()){
-			Liste<string> &valeur = regles.at(i).getvaleur();
-			string nom = regles.at(i).getnom();
-			string str;
+	while(int i = regles.foreach()){
+		if(regles.get().isrecursive()){
+			Liste<string> &valeur = regles.get().getvaleur();
+			string nom = regles.get().getnom();
 			Liste<string> valeurprime;
-			for(int j=0; j<valeur.size(); j++){
-				if(strstr(valeur.at(j).c_str(),nom.c_str())){
-					str = valeur.remove(j);
-					j--;
+			while(int j = valeur.foreach()){
+				if(!strncmp(valeur.get().c_str(),nom.c_str(),nom.size())){
+					string str = valeur.remove(j-1);
 					str = str.substr(nom.size(),str.size()-1)+nom+"'";
 					valeurprime.add(str);}
-				else valeur.at(j) = valeur.at(j)+nom+"'";}
+				else valeur.get() = valeur.get()+nom+"'";}
 			valeurprime.add("#");
 			Regle regleprime(nom+"'",valeurprime);
-			regles.insert(i+1,regleprime);
-			i++;}}}
+			regles.insert(i,regleprime);}}}
 
 Liste<string> Grammaire::getpremier(const Regle &regle){
 	Liste<string> premier;

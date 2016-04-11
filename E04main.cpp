@@ -10,7 +10,7 @@ using namespace std;
 int main(){
 	Grammaire grammaire = Grammaire::getgrammaire();
 	cout << "Grammaire :" << endl;
-	cout << grammaire << endl;
+	cout << grammaire;
 	Liste<Regle> regles = grammaire.getregles();
 	cout << "r\202cursivit\202 :" << endl;
 	while(regles.foreach()){
@@ -21,7 +21,7 @@ int main(){
 	cout << endl;
 	grammaire.derecursiver();
 	cout << "Grammaire d\202r\202cursiv\202e :" << endl;
-	cout << grammaire << endl;
+	cout << grammaire;
 	regles = grammaire.getregles();
 	cout << "Calcul des premiers :" << endl;
 	while(regles.foreach()){
@@ -33,8 +33,4 @@ int main(){
 		cout << grammaire.getsuivant(regles.get()) << endl;}
 	cout << endl << "Table d'analyse syntaxique :" << endl;
 	grammaire.printanalysetab();
-	system("PAUSE");
-}
-
-
-
+	system("PAUSE");}
