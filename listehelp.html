@@ -980,17 +980,17 @@
 					<label>Example :</label>
 					<div class="code">
 						<pre>// Comparison functions</pre>
-						<pre>template &lt;typename Type&gt;</pre>
-						<pre>int strcmp(const string &amp;str1, const Type &amp;str2){</pre>
+						<pre>template &lt;typename Value&gt;</pre>
+						<pre>int strcmp(const string &amp;str1, const Value &amp;str2){</pre>
 						<pre>	return str1.compare(str2);</pre>
 						<pre>}</pre>
 						<br>
-						<pre>template &lt;typename Type&gt;</pre>
-						<pre>bool strequals(const string &amp;str1, const Type &amp;str2){</pre>
+						<pre>template &lt;typename Value&gt;</pre>
+						<pre>bool strequals(const string &amp;str1, const Value &amp;str2){</pre>
 						<pre>	return (str1==str2);</pre>
 						<pre>}</pre>
 						<br>
-						<pre>// Notice that we use template functions because val can be a string or a const char* as below</pre>
+						<pre>// Notice that we use template functions because Value can be string or const char* as below</pre>
 						<pre>int main(){</pre>
 						<pre>	Liste&lt;string&gt; liste;</pre>
 						<pre>	liste.add("tata");</pre>
@@ -1215,7 +1215,9 @@
 						<pre>	liste.add("tata");</pre>
 						<pre>	liste.add("toto");</pre>
 						<pre>	cout << "The list contains: " << liste << endl;</pre>
+						<pre>	// The following lines are equivalent</pre>
 						<pre>	liste.sort(strcmp);</pre>
+						<pre>	liste.sort();	// operator&lt; is implicitly called here</pre>
 						<pre>	cout << "The list contains: " << liste << endl;</pre>
 						<pre>}</pre>
 					</div>
@@ -1285,7 +1287,9 @@
 						<pre>	liste.add("tata");</pre>
 						<pre>	liste.add("toto");</pre>
 						<pre>	cout << "The list contains: " << liste << endl;</pre>
-						<pre>	liste.sort(strcmp);</pre>
+						<pre>	// The following lines are equivalent</pre>
+						<pre>	liste.rsort(strcmp);</pre>
+						<pre>	liste.rsort();	// operator&lt; is implicitly called here</pre>
 						<pre>	cout << "The list contains: " << liste << endl;</pre>
 						<pre>}</pre>
 					</div>
@@ -1405,17 +1409,17 @@
 					<label>Example :</label>
 					<div class="code">
 						<pre>// Comparison functions</pre>
-						<pre>template &lt;typename Type&gt;</pre>
-						<pre>int strcmp(const string &amp;str1, const Type &amp;str2){</pre>
+						<pre>template &lt;typename Value&gt;</pre>
+						<pre>int strcmp(const string &amp;str1, const Value &amp;str2){</pre>
 						<pre>	return str1.compare(str2);</pre>
 						<pre>}</pre>
 						<br>
-						<pre>template &lt;typename Type&gt;</pre>
-						<pre>bool strequals(const string &amp;str1, const Type &amp;str2){</pre>
+						<pre>template &lt;typename Value&gt;</pre>
+						<pre>bool strequals(const string &amp;str1, const Value &amp;str2){</pre>
 						<pre>	return (str1==str2);</pre>
 						<pre>}</pre>
 						<br>
-						<pre>// Notice that we use template functions because val can be a string or a const char* as below</pre>
+						<pre>// Notice that we use template functions because Value can be string or const char* as below</pre>
 						<pre>int main(){</pre>
 						<pre>	Liste&lt;string&gt; liste;</pre>
 						<pre>	liste.add("tata");</pre>
@@ -1491,17 +1495,17 @@
 					<label>Example :</label>
 					<div class="code">
 						<pre>// Comparison functions</pre>
-						<pre>template &lt;typename Type&gt;</pre>
-						<pre>int strcmp(const string &amp;str1, const Type &amp;str2){</pre>
+						<pre>template &lt;typename Value&gt;</pre>
+						<pre>int strcmp(const string &amp;str1, const Value &amp;str2){</pre>
 						<pre>	return str1.compare(str2);</pre>
 						<pre>}</pre>
 						<br>
-						<pre>template &lt;typename Type&gt;</pre>
-						<pre>bool strequals(const string &amp;str1, const Type &amp;str2){</pre>
+						<pre>template &lt;typename Value&gt;</pre>
+						<pre>bool strequals(const string &amp;str1, const Value &amp;str2){</pre>
 						<pre>	return (str1==str2);</pre>
 						<pre>}</pre>
 						<br>
-						<pre>// Notice that we use template functions because val can be a string or a const char* as below</pre>
+						<pre>// Notice that we use template functions because Value can be string or const char* as below</pre>
 						<pre>int main(){</pre>
 						<pre>	Liste&lt;string&gt; liste;</pre>
 						<pre>	liste.add("tata");</pre>

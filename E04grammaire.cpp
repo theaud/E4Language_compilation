@@ -74,7 +74,7 @@ Liste<string> Grammaire::getsuivant(const Regle &regle){
 		while(valeur.foreach()){
 			if(char *index = strstr(valeur.get().c_str(),regle.getnom().c_str())){
 				index += regle.getnom().size();
-				if(*index==0 && strcmp(regle.getnom().c_str(),regles.get().getnom().c_str())){
+				if(*index==0 && regle.getnom()!=regles.get().getnom()){
 					suivant += getsuivant(regles.get());}
 				if(*index!=0 && *index!='\''){
 					string str;
