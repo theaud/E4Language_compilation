@@ -125,7 +125,7 @@ private :
 					inserer(sort,head);
 					test = false;}
 				for(LinkedList *maillon = sort; test; maillon = maillon->next){
-					if(maillon->next==NULL || tri*callback(head->data,maillon->data)>=0 && tri*callback(head->data,maillon->next->data)<0){
+					if(maillon->next==NULL || tri*callback(head->data,maillon->next->data)<0){
 						inserer(maillon->next,head);
 						test = false;}}
 				head = next;}
