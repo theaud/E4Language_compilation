@@ -118,9 +118,10 @@ private :
 			LinkedList *sort = head;
 			sort->next = NULL;
 			head = next;
+			bool test;
 			while(head){
 				next = head->next;
-				bool test=true;
+				test = true;
 				if(tri*callback(head->data,sort->data)<0){
 					inserer(sort,head);
 					test = false;}
