@@ -11,7 +11,7 @@ public :
 	Grammaire(){}
 	~Grammaire(){}
 	friend ostream& operator<<(ostream &os, const Grammaire &grammaire);
-	static Grammaire getgrammaire();
+	static Grammaire getgrammaire(const char *path);
 	const Liste<Regle>& getregles()const;
 	void derecursiver();
 	Liste<string> getpremier(const Regle &regle);

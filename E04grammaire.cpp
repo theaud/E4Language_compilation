@@ -17,10 +17,10 @@ ostream& operator<<(ostream &os, const Grammaire &grammaire){
 	os << grammaire.regles << endl;
 	return os;}
 
-Grammaire Grammaire::getgrammaire(){
+Grammaire Grammaire::getgrammaire(const char *path){
 	Grammaire grammaire;
 	char *str;
-	FILE *file = fopen("E04grammaire.txt","r");
+	FILE *file = fopen(path,"r");
 	if(fgetc(file)!=EOF){
 		fseek(file,-1,SEEK_CUR);
 		while(fgetc(file)!=EOF){
@@ -29,7 +29,7 @@ Grammaire Grammaire::getgrammaire(){
 			grammaire.regles.add(str);
 			free(str);}
 		fclose(file);}
-	else cout << "* Erreur : le fichier E04grammaire.txt est absent ou vide ! *" << endl;
+	else cout << "* Erreur : le fichier " << path << " est absent ou vide ! *" << endl;
 	return grammaire;}
 
 const Liste<Regle>& Grammaire::getregles()const{
